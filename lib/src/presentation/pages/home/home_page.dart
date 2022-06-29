@@ -1,3 +1,4 @@
+import 'package:facebank/src/presentation/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -252,9 +253,19 @@ class HomePage extends GetView<HomeController> {
                   right: 0,
                   left: 0,
                   child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 8),
+                    padding: EdgeInsets.only(top: 8, bottom: 30),
                     width: double.infinity,
-                    color: Colors.white,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.08),
+                          offset: Offset(0,-15),
+                          blurRadius: 15,
+
+                        )
+                      ]
+                    ),
                     child: Row(
                       children: [
                         HorizontalMenuItem(
@@ -263,10 +274,13 @@ class HomePage extends GetView<HomeController> {
                           isActive: true,
                         ),
                         HorizontalMenuItem(
-                            label: 'Home',
-                            iconPath: 'assets/images/grid-add.svg'),
+                          label: 'Home',
+                          iconPath: 'assets/images/grid-add.svg',
+                        ),
                         HorizontalMenuItem(
-                            label: 'Home', iconPath: 'assets/images/menu.svg'),
+                          label: 'Home',
+                          iconPath: 'assets/images/menu.svg',
+                        ),
                       ],
                     ),
                   ),
@@ -332,10 +346,10 @@ class MyFlexiableAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double statusBarHeight = MediaQuery.of(context).padding.top;
-
+    final responsive = Responsive.of(context);
     return new Container(
       padding: new EdgeInsets.only(
-        top: statusBarHeight * 2.5,
+        top: responsive.hp(12),
         left: 16,
         right: 16,
       ),
