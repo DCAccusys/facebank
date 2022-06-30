@@ -6,6 +6,7 @@ class HorizontalMenuItem extends StatelessWidget {
   final String iconPath;
   final VoidCallback? onPressed;
   final bool? isActive;
+  final bool isBottomMenu;
 
   const HorizontalMenuItem({
     super.key,
@@ -13,6 +14,7 @@ class HorizontalMenuItem extends StatelessWidget {
     required this.iconPath,
     this.onPressed,
     this.isActive,
+    this.isBottomMenu = false,
   });
 
   @override
@@ -23,15 +25,26 @@ class HorizontalMenuItem extends StatelessWidget {
         child: Column(
           children: [
             Container(
-                width: 48,
-                height: 48,
-                decoration: BoxDecoration(
-                  color: this.isActive ?? false ? Colors.black : Colors.white,
-                  borderRadius: BorderRadius.circular(100),
-                ),
-                child: Center(
-                  child: SvgPicture.asset(this.iconPath),
-                )),
+              width: 48,
+              height: 48,
+              decoration: BoxDecoration(
+                color: this.isActive ?? false ? Colors.black : Colors.white,
+                borderRadius: BorderRadius.circular(100),
+                boxShadow: [
+                  this.isBottomMenu
+                      ? BoxShadow(
+                          color: Colors.transparent,
+                        )
+                      : BoxShadow(
+                          color: Colors.black.withOpacity(0.09),
+                          offset: Offset(1, 1),
+                        )
+                ],
+              ),
+              child: Center(
+                child: SvgPicture.asset(this.iconPath),
+              ),
+            ),
             SizedBox(
               height: 4,
             ),
