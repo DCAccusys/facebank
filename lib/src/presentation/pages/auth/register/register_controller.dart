@@ -38,7 +38,7 @@ class RegisterController extends GetxController {
   TextEditingController firstPetInputText = new TextEditingController();
   MaskTextInputFormatter get accountNumberFormatter =>
       new MaskTextInputFormatter(
-        mask: '#-###-#######-#',
+        mask: '##-###-#######-#',
         filter: {"#": RegExp(r'[0-9]')},
         type: MaskAutoCompletionType.lazy,
       );
