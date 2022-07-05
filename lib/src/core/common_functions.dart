@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../config/constants/colors.dart';
+import '../config/constants/fonts_styles.dart';
 
 class CommonFunctions {
   static void hideKeyboard(BuildContext context) {
@@ -28,11 +32,55 @@ class CommonFunctions {
     return MaterialColor(color.value, swatch);
   }
 
-  bool isKeyboardVisible() {
-    if (WidgetsBinding.instance.window.viewInsets.bottom > 0.0) {
-      return true;
-    } else {
-      return false;
-    }
+  static void showTopBanner(String title, String message) {
+    Get.snackbar(
+      '',
+      'Alternative',
+      duration: Duration(seconds: 10),
+      messageText: Row(
+        children: [
+          SizedBox(
+            width: 36,
+          ),
+          Text(
+            message,
+            style: CustomFontStyle.text400Normal14px(
+              textAlternativeColor,
+            ),
+          ),
+        ],
+      ),
+      titleText: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              Icon(
+                Icons.check,
+                color: success100,
+              ),
+              SizedBox(
+                width: 12,
+              ),
+              Text(
+                title,
+                style: CustomFontStyle.text600Normal16px(success100),
+              ),
+            ],
+          ),
+          GestureDetector(
+            onTap: Get.back,
+            child: Icon(
+              Icons.close,
+              color: textAlternativeColor,
+            ),
+          )
+        ],
+      ),
+      isDismissible: false,
+      margin: EdgeInsets.all(16),
+      borderRadius: 8,
+      backgroundColor: brandAccent,
+    );
   }
 }

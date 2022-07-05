@@ -49,5 +49,13 @@ class CustomFontStyle {
         fontSize: 28,
         fontWeight: FontWeight.w500,
         fontStyle: FontStyle.normal,
+        color: textColor
+      );
+
+  static text600Normal16px(Color textColor, {bool? letterSpacing}) => TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.w600,
+        fontStyle: FontStyle.normal,
+        color: textColor
       );
 }

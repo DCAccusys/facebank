@@ -1,4 +1,6 @@
 import 'package:facebank/src/presentation/pages/auth/register/steps/step_3.dart';
+import 'package:facebank/src/presentation/pages/auth/register/steps/step_4.dart';
+import 'package:facebank/src/presentation/pages/auth/register/steps/step_5.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
@@ -11,7 +13,7 @@ import 'steps/step_2.dart';
 class RegisterController extends GetxController {
   late StreamSubscription<bool> keyboardSubscription;
 
-  List<Widget> steps = [Step1(), Step2(), Step3()];
+  List<Widget> steps = [Step1(), Step2(), Step3(), Step4(), Step5()];
   RxInt _stackIndex = 0.obs;
   RxInt get stackIndex => this._stackIndex;
 
@@ -41,6 +43,20 @@ class RegisterController extends GetxController {
   RxBool isKeyboard3Visible = false.obs;
   RxBool isNextButton3Enabled = false.obs;
   /* END- Step3 Variables */
+
+  /* INIT- Step4 Variables */
+  TextEditingController newPasswordInputText = new TextEditingController();
+  TextEditingController confirmPasswordInputText = new TextEditingController();
+  RxBool isNewPasswordVisible = false.obs;
+  RxBool isConfirmPasswordVisible = false.obs;
+  RxBool isNextButton4Enabled = false.obs;
+  /* END- Step4 Variables */
+
+  /* INIT- Step5 Variables */
+  TextEditingController imageAliasInputText = new TextEditingController();
+  RxBool isImageAliasVisible = false.obs;
+  RxBool isNextButton5Enabled = false.obs;
+  /* END- Step5 Variables */
 
   @override
   void onReady() {
@@ -74,10 +90,26 @@ class RegisterController extends GetxController {
     /* INIT- Step3 Listener */
 
     tempPasswordInputText.addListener(() {
-      this.isNextButton3Enabled.value = this.tempPasswordInputText.text.isNotEmpty;
+      this.isNextButton3Enabled.value =
+          this.tempPasswordInputText.text.isNotEmpty;
     });
 
     /* END- Step3 Listener */
+    /* INIT- Step4 Listener */
+
+    newPasswordInputText.addListener(verifyIfPasswordHadSame);
+    confirmPasswordInputText.addListener(verifyIfPasswordHadSame);
+
+    /* END- Step4 Listener */
+
+    /* INIT- Step5 Listener */
+
+    imageAliasInputText.addListener((){
+      this.isNextButton5Enabled.value = this.imageAliasInputText.text.isNotEmpty;
+      print('button 5 -> ${this.isNextButton5Enabled.value}');
+    });
+
+    /* END- Step5 Listener */
     super.onReady();
   }
 
@@ -89,6 +121,9 @@ class RegisterController extends GetxController {
     accountNumberInputText.dispose();
     firstPetInputText.dispose();
     tempPasswordInputText.dispose();
+    newPasswordInputText.dispose();
+    confirmPasswordInputText.dispose();
+    imageAliasInputText.dispose();
     keyboardSubscription.cancel();
     super.onClose();
   }
@@ -143,9 +178,35 @@ class RegisterController extends GetxController {
     print('Resend password');
   }
 
-  void nextButton3Clicked(){
+  void nextButton3Clicked() {
     this._nextIndex();
   }
   /* END- Step3 methods */
+
+  /* INIT- Step4 methods */
+  void verifyIfPasswordHadSame() {
+    this.isNextButton4Enabled.value = this
+            .newPasswordInputText
+            .text
+            .isNotEmpty &&
+        this.confirmPasswordInputText.text.isNotEmpty &&
+        (this.newPasswordInputText.text == this.confirmPasswordInputText.text);
+  }
+
+  void changeConfirmPasswordVisible(){
+    this.isConfirmPasswordVisible.value = !this.isConfirmPasswordVisible.value;
+  }
+  void changeNewPasswordVisible(){
+    this.isNewPasswordVisible.value = !this.isNewPasswordVisible.value;
+  }
+
+  /* END- Step4 methods */
+
+  /* INIT- Step5 methods */
+  void changeImageAliasVisible(){
+    this.isImageAliasVisible.value = !this.isImageAliasVisible.value;
+  }
+
+  /* END- Step5 methods */
 
 }
