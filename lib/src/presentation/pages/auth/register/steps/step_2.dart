@@ -81,6 +81,9 @@ class Step2 extends StatelessWidget {
                       textInputAction: TextInputAction.done,
                       textCapitalization: TextCapitalization.words,
                     ),
+                    SizedBox(
+                      height: 24,
+                    ),
                   ],
                 ),
               ),

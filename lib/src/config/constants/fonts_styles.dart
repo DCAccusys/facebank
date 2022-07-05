@@ -29,6 +29,17 @@ class CustomFontStyle {
         decoration: withUnderline ?? false ? TextDecoration.underline : null,
       );
 
+  static text400Normal28px(Color textColor,
+          {bool? letterSpacing, bool? withUnderline}) =>
+      TextStyle(
+        fontSize: 28,
+        fontWeight: FontWeight.w400,
+        letterSpacing: letterSpacing ?? false ? 0.1 : null,
+        color: textColor,
+        fontStyle: FontStyle.normal,
+        decoration: withUnderline ?? false ? TextDecoration.underline : null,
+      );
+
   static text500Normal16px(Color textColor, {bool? letterSpacing}) => TextStyle(
         fontSize: 16,
         fontWeight: FontWeight.w500,

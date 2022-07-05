@@ -1,6 +1,7 @@
 import 'package:facebank/src/presentation/pages/auth/register/steps/step_3.dart';
 import 'package:facebank/src/presentation/pages/auth/register/steps/step_4.dart';
 import 'package:facebank/src/presentation/pages/auth/register/steps/step_5.dart';
+import 'package:facebank/src/presentation/pages/auth/register/steps/step_6.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
@@ -13,7 +14,14 @@ import 'steps/step_2.dart';
 class RegisterController extends GetxController {
   late StreamSubscription<bool> keyboardSubscription;
 
-  List<Widget> steps = [Step1(), Step2(), Step3(), Step4(), Step5()];
+  List<Widget> steps = [
+    Step1(),
+    Step2(),
+    Step3(),
+    Step4(),
+    Step5(),
+    Step6(),
+  ];
   RxInt _stackIndex = 0.obs;
   RxInt get stackIndex => this._stackIndex;
 
@@ -104,8 +112,9 @@ class RegisterController extends GetxController {
 
     /* INIT- Step5 Listener */
 
-    imageAliasInputText.addListener((){
-      this.isNextButton5Enabled.value = this.imageAliasInputText.text.isNotEmpty;
+    imageAliasInputText.addListener(() {
+      this.isNextButton5Enabled.value =
+          this.imageAliasInputText.text.isNotEmpty;
       print('button 5 -> ${this.isNextButton5Enabled.value}');
     });
 
@@ -193,17 +202,18 @@ class RegisterController extends GetxController {
         (this.newPasswordInputText.text == this.confirmPasswordInputText.text);
   }
 
-  void changeConfirmPasswordVisible(){
+  void changeConfirmPasswordVisible() {
     this.isConfirmPasswordVisible.value = !this.isConfirmPasswordVisible.value;
   }
-  void changeNewPasswordVisible(){
+
+  void changeNewPasswordVisible() {
     this.isNewPasswordVisible.value = !this.isNewPasswordVisible.value;
   }
 
   /* END- Step4 methods */
 
   /* INIT- Step5 methods */
-  void changeImageAliasVisible(){
+  void changeImageAliasVisible() {
     this.isImageAliasVisible.value = !this.isImageAliasVisible.value;
   }
 
