@@ -25,11 +25,14 @@ class RegisterController extends GetxController {
   TextEditingController idNumerInputText = new TextEditingController();
   TextEditingController accountNumberInputText = new TextEditingController();
   TextEditingController firstPetInputText = new TextEditingController();
-  MaskTextInputFormatter get accountNumberFormatter => new MaskTextInputFormatter(
-    mask: '#-###-#######-#',
-    filter: {"#": RegExp(r'[0-9]')},
-    type: MaskAutoCompletionType.lazy,
-  );
+  MaskTextInputFormatter get accountNumberFormatter =>
+      new MaskTextInputFormatter(
+        mask: '#-###-#######-#',
+        filter: {"#": RegExp(r'[0-9]')},
+        type: MaskAutoCompletionType.lazy,
+      );
+  RxBool isNextButton2Enabled = false.obs;
+  /* END- Step2 Variables */
 
   @override
   void onReady() {
@@ -45,16 +48,29 @@ class RegisterController extends GetxController {
     /* INIT- Step1 Listener */
 
     userNameInputText.addListener(() {
-      this.isNextButtonEnabled.value = this.userNameInputText.text.length != 0;
+      this.isNextButtonEnabled.value = this.userNameInputText.text.isNotEmpty;
     });
 
     /* END- Step1 Listener */
+
+    /* INIT- Step2 Listener */
+
+    emailInputText.addListener(verifyIsFormComplete);
+    idNumerInputText.addListener(verifyIsFormComplete);
+    accountNumberInputText.addListener(verifyIsFormComplete);
+    firstPetInputText.addListener(verifyIsFormComplete);
+
+    /* END- Step2 Listener */
     super.onReady();
   }
 
   @override
   void onClose() {
     userNameInputText.dispose();
+    emailInputText.dispose();
+    idNumerInputText.dispose();
+    accountNumberInputText.dispose();
+    firstPetInputText.dispose();
     keyboardSubscription.cancel();
     super.onClose();
   }
@@ -82,6 +98,20 @@ class RegisterController extends GetxController {
 
   void returnToLoginPage() {
     print('Return to login page');
+  }
+
+  /* END- Step1 methods */
+
+  /* INIT- Step2 methods */
+  void nextButton2Clicked() {
+    this._nextIndex();
+  }
+
+  void verifyIsFormComplete() {
+    this.isNextButton2Enabled.value = emailInputText.text.isNotEmpty &&
+        idNumerInputText.text.isNotEmpty &&
+        accountNumberInputText.text.isNotEmpty &&
+        firstPetInputText.text.isNotEmpty;
   }
 
   /* END- Step1 methods */

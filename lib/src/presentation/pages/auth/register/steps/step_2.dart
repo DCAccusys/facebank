@@ -1,5 +1,6 @@
 import 'package:facebank/src/config/constants/colors.dart';
 import 'package:facebank/src/config/constants/fonts_styles.dart';
+import 'package:facebank/src/core/common_functions.dart';
 import 'package:facebank/src/presentation/pages/auth/register/register_controller.dart';
 import 'package:facebank/src/presentation/widgets/custom_button.dart';
 import 'package:facebank/src/presentation/widgets/custom_input_field.dart';
@@ -85,13 +86,13 @@ class Step2 extends StatelessWidget {
               ),
             ),
           ),
-          _bottomButton(controller)
+          _bottomButton(controller, context)
         ],
       ),
     );
   }
 
-  Container _bottomButton(RegisterController controller) {
+  Container _bottomButton(RegisterController controller, BuildContext context) {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(16),
@@ -108,8 +109,19 @@ class Step2 extends StatelessWidget {
           )
         ],
       ),
-      child: CustomButton(
-        text: 'Siguiente',
+      child: Obx(
+        () => CustomButton(
+          onPressed: controller.isNextButton2Enabled.value
+              ? () {
+                  CommonFunctions.hideKeyboard(context);
+                  controller.nextButton2Clicked();
+                }
+              : null,
+          buttonColor: controller.isNextButton2Enabled.value
+              ? brandMain
+              : aPrimaryDisabled,
+          text: 'Siguiente',
+        ),
       ),
     );
   }
