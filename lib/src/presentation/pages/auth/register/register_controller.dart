@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'dart:async';
 
 import 'steps/step_1.dart';
@@ -18,6 +19,17 @@ class RegisterController extends GetxController {
   TextEditingController userNameInputText = new TextEditingController();
   RxBool isNextButtonEnabled = false.obs;
   /* END- Step1 Variables */
+
+  /* INIT- Step2 Variables */
+  TextEditingController emailInputText = new TextEditingController();
+  TextEditingController idNumerInputText = new TextEditingController();
+  TextEditingController accountNumberInputText = new TextEditingController();
+  TextEditingController firstPetInputText = new TextEditingController();
+  MaskTextInputFormatter get accountNumberFormatter => new MaskTextInputFormatter(
+    mask: '#-###-#######-#',
+    filter: {"#": RegExp(r'[0-9]')},
+    type: MaskAutoCompletionType.lazy,
+  );
 
   @override
   void onReady() {

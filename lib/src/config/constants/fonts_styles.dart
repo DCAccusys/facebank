@@ -36,9 +36,11 @@ class CustomFontStyle {
         color: textColor,
       );
 
-  static text500Normal14px(Color textColor, {bool? letterSpacing}) => TextStyle(
+  static text500Normal14px(Color textColor,
+          {bool? letterSpacing, bool? isBold}) =>
+      TextStyle(
         fontSize: 14,
-        fontWeight: FontWeight.w500,
+        fontWeight: isBold ?? false ? FontWeight.bold : FontWeight.w500,
         fontStyle: FontStyle.normal,
         letterSpacing: letterSpacing ?? false ? 0.1 : null,
       );

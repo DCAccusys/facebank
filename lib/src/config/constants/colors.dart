@@ -12,3 +12,7 @@ final textOnbuttonDisabled = Color(0xffFFFFFF);
 
 final brandMain = Color(0xff15AFB9);
 final bgPrimary = Color(0xffF3F5F8);
+
+
+final whiteColor = Color(0xffFFFFFF);
+final blackColor025 = Color(0xff000000).withOpacity(0.25);
