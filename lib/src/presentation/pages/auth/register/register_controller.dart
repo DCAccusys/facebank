@@ -1,3 +1,4 @@
+import 'package:facebank/src/presentation/pages/auth/register/steps/step_3.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
@@ -9,15 +10,15 @@ import 'steps/step_2.dart';
 
 class RegisterController extends GetxController {
   late StreamSubscription<bool> keyboardSubscription;
-  RxBool isKeyboardVisible = false.obs;
 
-  List<Widget> steps = [Step1(), Step2()];
+  List<Widget> steps = [Step1(), Step2(), Step3()];
   RxInt _stackIndex = 0.obs;
   RxInt get stackIndex => this._stackIndex;
 
   /* INIT- Step1 Variables */
   TextEditingController userNameInputText = new TextEditingController();
   RxBool isNextButtonEnabled = false.obs;
+  RxBool isKeyboardVisible = false.obs;
   /* END- Step1 Variables */
 
   /* INIT- Step2 Variables */
@@ -34,6 +35,13 @@ class RegisterController extends GetxController {
   RxBool isNextButton2Enabled = false.obs;
   /* END- Step2 Variables */
 
+  /* INIT- Step3 Variables */
+  TextEditingController tempPasswordInputText = new TextEditingController();
+  RxBool isPasswordVisible = false.obs;
+  RxBool isKeyboard3Visible = false.obs;
+  RxBool isNextButton3Enabled = false.obs;
+  /* END- Step3 Variables */
+
   @override
   void onReady() {
     var keyboardVisibilityController = KeyboardVisibilityController();
@@ -43,6 +51,7 @@ class RegisterController extends GetxController {
         await Future.delayed(Duration(milliseconds: 100));
       }
       this.isKeyboardVisible.value = visible;
+      this.isKeyboard3Visible.value = visible;
     });
 
     /* INIT- Step1 Listener */
@@ -61,6 +70,14 @@ class RegisterController extends GetxController {
     firstPetInputText.addListener(verifyIsFormComplete);
 
     /* END- Step2 Listener */
+
+    /* INIT- Step3 Listener */
+
+    tempPasswordInputText.addListener(() {
+      this.isNextButton3Enabled.value = this.tempPasswordInputText.text.isNotEmpty;
+    });
+
+    /* END- Step3 Listener */
     super.onReady();
   }
 
@@ -71,6 +88,7 @@ class RegisterController extends GetxController {
     idNumerInputText.dispose();
     accountNumberInputText.dispose();
     firstPetInputText.dispose();
+    tempPasswordInputText.dispose();
     keyboardSubscription.cancel();
     super.onClose();
   }
@@ -114,6 +132,20 @@ class RegisterController extends GetxController {
         firstPetInputText.text.isNotEmpty;
   }
 
-  /* END- Step1 methods */
+  /* END- Step2 methods */
+
+  /* INIT- Step3 methods */
+  void changePasswordStateVisibility() {
+    this.isPasswordVisible.value = !this.isPasswordVisible.value;
+  }
+
+  void resendTempPassword() {
+    print('Resend password');
+  }
+
+  void nextButton3Clicked(){
+    this._nextIndex();
+  }
+  /* END- Step3 methods */
 
 }

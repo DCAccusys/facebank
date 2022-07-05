@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../config/constants/colors.dart';
 import '../../config/constants/fonts_styles.dart';
@@ -14,28 +15,35 @@ class CustomInputField extends StatelessWidget {
   final Color? placeholderColor;
   final Color? borderFocusedColor;
   final Color? borderColor;
+  final bool? isPasswordField;
+  final bool? isPasswordVisible;
   final TextEditingController? textController;
   final TextInputAction? textInputAction;
   final TextInputType? textInputType;
   final List<TextInputFormatter>? formatters;
   final TextCapitalization? textCapitalization;
+  final VoidCallback? onShowHidePressed;
 
-  const CustomInputField(
-      {super.key,
-      required this.text,
-      required this.placeholder,
-      this.textColor,
-      this.maxLength,
-      this.inputTextColor,
-      this.placeholderColor,
-      this.borderFocusedColor,
-      this.borderColor,
-      this.textController,
-      this.textInputAction,
-      this.textInputType,
-      this.helperText,
-      this.formatters,
-      this.textCapitalization});
+  const CustomInputField({
+    super.key,
+    required this.text,
+    required this.placeholder,
+    this.textColor,
+    this.maxLength,
+    this.inputTextColor,
+    this.placeholderColor,
+    this.borderFocusedColor,
+    this.borderColor,
+    this.textController,
+    this.textInputAction,
+    this.textInputType,
+    this.helperText,
+    this.formatters,
+    this.textCapitalization,
+    this.isPasswordField,
+    this.isPasswordVisible,
+    this.onShowHidePressed,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +61,9 @@ class CustomInputField extends StatelessWidget {
             height: 8,
           ),
           TextField(
+            obscureText: this.isPasswordVisible != null
+                ? !this.isPasswordVisible!
+                : false,
             controller: this.textController,
             textCapitalization:
                 this.textCapitalization ?? TextCapitalization.none,
@@ -89,6 +100,21 @@ class CustomInputField extends StatelessWidget {
               hintStyle: CustomFontStyle.text400Normal16px(
                 this.placeholderColor ?? textDisabledColor,
               ),
+              suffixIcon: this.isPasswordField ?? false
+                  ? GestureDetector(
+                      onTap: this.onShowHidePressed,
+                      child: Container(
+                        padding: EdgeInsets.all(15),
+                        child: this.isPasswordVisible ?? false
+                            ? SvgPicture.asset(
+                                'assets/images/svg/eye-empty.svg',
+                              )
+                            : SvgPicture.asset(
+                                'assets/images/svg/eye-off.svg',
+                              ),
+                      ),
+                    )
+                  : null,
             ),
           )
         ],

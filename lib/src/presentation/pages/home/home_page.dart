@@ -503,7 +503,7 @@ class MyFlexiableAppBar extends StatelessWidget {
                       width: 11,
                     ),
                     SvgPicture.asset(
-                      'assets/images/eye-empty.svg',
+                      'assets/images/svg/eye-empty.svg',
                       color: Color(0xff1F2836),
                     )
                   ],

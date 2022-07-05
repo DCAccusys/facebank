@@ -9,10 +9,10 @@ class CustomFontStyle {
         fontStyle: FontStyle.normal,
       );
   static text400Normal14px(Color textColor,
-          {bool? letterSpacing, bool? withUnderline}) =>
+          {bool? letterSpacing, bool? withUnderline, bool? isBold}) =>
       TextStyle(
         fontSize: 14,
-        fontWeight: FontWeight.w400,
+        fontWeight: isBold ?? false ? FontWeight.bold : FontWeight.w400,
         letterSpacing: letterSpacing ?? false ? 0.1 : null,
         color: textColor,
         fontStyle: FontStyle.normal,

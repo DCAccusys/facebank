@@ -7,12 +7,14 @@ class UnderlineTextButton extends StatelessWidget {
   final VoidCallback onPressed;
   final String text;
   final Color? textColor;
+  final bool? isBold;
 
   const UnderlineTextButton({
     super.key,
     required this.onPressed,
     required this.text,
     this.textColor,
+    this.isBold,
   });
 
   @override
@@ -26,6 +28,7 @@ class UnderlineTextButton extends StatelessWidget {
           style: CustomFontStyle.text400Normal14px(
             this.textColor ?? textDefaultColor,
             withUnderline: true,
+            isBold: this.isBold,
           ),
           textAlign: TextAlign.center,
         ),
