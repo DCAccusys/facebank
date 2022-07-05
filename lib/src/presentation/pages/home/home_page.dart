@@ -26,7 +26,7 @@ class HomePage extends GetView<HomeController> {
                 SliverAppBar(
                   title: MyAppBar(),
                   pinned: true,
-                  expandedHeight: responsive.hp(20),
+                  expandedHeight: responsive.hp(17),
                   flexibleSpace: FlexibleSpaceBar(
                     background: MyFlexiableAppBar(),
                   ),

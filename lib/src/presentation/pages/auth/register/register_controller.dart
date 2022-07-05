@@ -16,7 +16,10 @@ class RegisterController extends GetxController {
   void onReady() {
     var keyboardVisibilityController = KeyboardVisibilityController();
 
-    keyboardVisibilityController.onChange.listen((bool visible) {
+    keyboardVisibilityController.onChange.listen((bool visible) async {
+      if(!visible){
+        await Future.delayed(Duration(milliseconds: 100));
+      }
       this.isKeyboardVisible.value = visible;
     });
 

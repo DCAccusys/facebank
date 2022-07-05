@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:facebank/src/config/constants/colors.dart';
 import 'package:facebank/src/config/constants/fonts_styles.dart';
 import 'package:flutter/material.dart';
@@ -47,18 +48,21 @@ class Step1 extends StatelessWidget {
               textController: controller.userNameInputText,
               text: 'Nombre de usuario',
               placeholder: 'Usuario',
+              textInputAction: TextInputAction.done,
             ),
             Spacer(),
             Visibility(
               visible: !controller.isKeyboardVisible.value,
-              child: Container(
-                width: double.infinity,
-                child: Text(
-                  'Si te registraste anteriormente',
-                  style: CustomFontStyle.text500Normal14px(
-                    textDefaultColor,
+              child: FadeIn(
+                child: Container(
+                  width: double.infinity,
+                  child: Text(
+                    'Si te registraste anteriormente',
+                    style: CustomFontStyle.text500Normal14px(
+                      textDefaultColor,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
-                  textAlign: TextAlign.center,
                 ),
               ),
             ),
@@ -67,9 +71,11 @@ class Step1 extends StatelessWidget {
             ),
             Visibility(
               visible: !controller.isKeyboardVisible.value,
-              child: UnderlineTextButton(
-                text: 'Inicia sesión',
-                onPressed: controller.returnToLoginPage,
+              child: FadeIn(
+                child: UnderlineTextButton(
+                  text: 'Inicia sesión',
+                  onPressed: controller.returnToLoginPage,
+                ),
               ),
             ),
             SizedBox(
@@ -77,12 +83,14 @@ class Step1 extends StatelessWidget {
             ),
             Visibility(
               visible: !controller.isKeyboardVisible.value,
-              child: CutomButton(
-                onPressed: controller.isNextButtonEnabled.value ? controller.nextButtonClicked : null,
-                text: 'Siguiente',
-                buttonColor: controller.isNextButtonEnabled.value
-                    ? brandMain
-                    : aPrimaryDisabled,
+              child: FadeIn(
+                child: CutomButton(
+                  onPressed: controller.isNextButtonEnabled.value ? controller.nextButtonClicked : null,
+                  text: 'Siguiente',
+                  buttonColor: controller.isNextButtonEnabled.value
+                      ? brandMain
+                      : aPrimaryDisabled,
+                ),
               ),
             ),
           ],
