@@ -37,6 +37,7 @@ dependencies:
   get: ^4.6.5
   google_fonts: ^3.0.1
   mask_text_input_formatter: ^2.3.0
+  percent_indicator: ^4.2.2
   pinput: ^2.2.11
 
 dev_dependencies:

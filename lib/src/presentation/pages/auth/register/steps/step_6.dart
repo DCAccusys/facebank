@@ -1,10 +1,13 @@
 import 'package:facebank/src/presentation/pages/auth/register/register_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 import 'package:pinput/pinput.dart';
 
 import '../../../../../config/constants/colors.dart';
 import '../../../../../config/constants/fonts_styles.dart';
+import '../../../../widgets/custom_button.dart';
+import '../../../../widgets/underline_text_button.dart';
 
 class Step6 extends StatelessWidget {
   const Step6({Key? key}) : super(key: key);
@@ -55,7 +58,75 @@ class Step6 extends StatelessWidget {
           SizedBox(
             height: 24,
           ),
-          _getPinInput(controller, context)
+          _getPinInput(controller, context),
+          SizedBox(
+            height: 24,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Ingresa el código antes de',
+                style: CustomFontStyle.text500Normal14px(
+                  textLighter2Color,
+                  isBold: true,
+                ),
+              )
+            ],
+          ),
+          SizedBox(
+            height: 19,
+          ),
+          Container(
+            width: double.infinity,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CircularPercentIndicator(
+                  radius: 60.0,
+                  lineWidth: 10.0,
+                  circularStrokeCap: CircularStrokeCap.round,
+                  percent: 0.5,
+                  center: new Text(
+                    '4:56',
+                    style: CustomFontStyle.text500Normal16px(
+                      textDefaultColor,
+                      isBold: true,
+                    ),
+                  ),
+                  progressColor: cardPrimaryDefaultColor,
+                  backgroundColor: bgPrimary,
+                ),
+              ],
+            ),
+          ),
+          Spacer(),
+          Container(
+            width: double.infinity,
+            child: Text(
+              '¿No recibiste la contraseña?',
+              style: CustomFontStyle.text500Normal14px(
+                textDefaultColor,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          UnderlineTextButton(
+            text: 'Reenviar contraseña',
+            onPressed: controller.resendTempPassword,
+            isBold: true,
+          ),
+          SizedBox(
+            height: 24,
+          ),
+          CustomButton(
+            onPressed: controller.nextButtonClicked,
+            text: 'Siguiente',
+            buttonColor: brandMain,
+          ),
         ],
       ),
     );
@@ -80,7 +151,7 @@ class Step6 extends StatelessWidget {
     final submittedPinTheme = defaultPinTheme.copyWith(
       decoration: defaultPinTheme.decoration?.copyWith(
         border: Border.all(color: cardPrimaryDefaultColor),
-      borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(8),
       ),
     );
     return Row(

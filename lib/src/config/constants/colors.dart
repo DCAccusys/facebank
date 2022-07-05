@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 final textDefaultColor = Color(0xff1F2836);
 final textLighterColor = Color(0xff677587);
+final textLighter2Color = Color(0xff728197);
 final textDisabledColor = Color(0xffA1ACB7);
 final textAlternativeColor = Color(0xffFFFFFF);
 
