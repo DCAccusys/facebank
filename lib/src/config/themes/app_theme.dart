@@ -1,4 +1,4 @@
-import 'package:facebank/src/presentation/utils/common_functions.dart';
+import 'package:facebank/src/core/common_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

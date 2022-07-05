@@ -27,4 +27,12 @@ class CommonFunctions {
     });
     return MaterialColor(color.value, swatch);
   }
+
+  bool isKeyboardVisible() {
+    if (WidgetsBinding.instance.window.viewInsets.bottom > 0.0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
