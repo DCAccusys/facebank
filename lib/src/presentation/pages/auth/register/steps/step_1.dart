@@ -84,7 +84,7 @@ class Step1 extends StatelessWidget {
             Visibility(
               visible: !controller.isKeyboardVisible.value,
               child: FadeIn(
-                child: CutomButton(
+                child: CustomButton(
                   onPressed: controller.isNextButtonEnabled.value ? controller.nextButtonClicked : null,
                   text: 'Siguiente',
                   buttonColor: controller.isNextButtonEnabled.value

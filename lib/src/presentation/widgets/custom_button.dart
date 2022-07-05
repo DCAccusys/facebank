@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import '../../config/constants/colors.dart';
 import '../../config/constants/fonts_styles.dart';
 
-class CutomButton extends StatelessWidget {
+class CustomButton extends StatelessWidget {
   final String text;
   final VoidCallback? onPressed;
   final Color? buttonColor;
   final Color? textColor;
 
-  const CutomButton({
+  const CustomButton({
     super.key,
     this.onPressed,
     required this.text,

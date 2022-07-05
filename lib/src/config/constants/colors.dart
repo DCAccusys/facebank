@@ -11,3 +11,4 @@ final aPrimaryDisabled = Color(0xffC1C8CE);
 final textOnbuttonDisabled = Color(0xffFFFFFF);
 
 final brandMain = Color(0xff15AFB9);
+final bgPrimary = Color(0xffF3F5F8);
