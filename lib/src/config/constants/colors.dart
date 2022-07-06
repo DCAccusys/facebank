@@ -9,8 +9,11 @@ final textAlternativeColor = Color(0xffFFFFFF);
 final borderDefaultColor = Color(0xffDBE4ED);
 
 final cardPrimaryDefaultColor = Color(0xffB3E7ED);
-final aPrimaryDisabled = Color(0xffC1C8CE);
+final cardPrimaryFocused = Color(0xff9FDDE4);
 final textOnbuttonDisabled = Color(0xffFFFFFF);
+
+final aPrimaryDisabled = Color(0xffC1C8CE);
+final aPrimaryDefault = Color(0xff1F2836);
 
 final brandMain = Color(0xff15AFB9);
 final bgPrimary = Color(0xffF3F5F8);
@@ -21,3 +24,7 @@ final whiteColor = Color(0xffFFFFFF);
 final blackColor025 = Color(0xff000000).withOpacity(0.25);
 final brandAccent = Color(0xff1F2836);
 final success100 = Color(0xff9AE6B4);
+final greenSelection = Color(0xffD1F1F4);
+
+final aSecondDefault = Color(0xff1F2836);
+final actionTertiaryPressed = Color(0xffE1E7EF);

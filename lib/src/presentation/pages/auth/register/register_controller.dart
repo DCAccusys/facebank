@@ -2,6 +2,9 @@ import 'package:facebank/src/presentation/pages/auth/register/steps/step_3.dart'
 import 'package:facebank/src/presentation/pages/auth/register/steps/step_4.dart';
 import 'package:facebank/src/presentation/pages/auth/register/steps/step_5.dart';
 import 'package:facebank/src/presentation/pages/auth/register/steps/step_6.dart';
+import 'package:facebank/src/presentation/pages/auth/register/steps/step_7.dart';
+import 'package:facebank/src/presentation/pages/auth/register/steps/step_8.dart';
+import 'package:facebank/src/presentation/pages/auth/register/steps/step_9.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
@@ -21,6 +24,9 @@ class RegisterController extends GetxController {
     Step4(),
     Step5(),
     Step6(),
+    Step7(),
+    Step8(),
+    Step9(),
   ];
   RxInt _stackIndex = 0.obs;
   RxInt get stackIndex => this._stackIndex;
@@ -215,6 +221,14 @@ class RegisterController extends GetxController {
   /* INIT- Step5 methods */
   void changeImageAliasVisible() {
     this.isImageAliasVisible.value = !this.isImageAliasVisible.value;
+  }
+
+  /* END- Step5 methods */
+
+  /* INIT- Step5 methods */
+  void nextButton6Clicked() {
+
+    this._nextIndex();
   }
 
   /* END- Step5 methods */

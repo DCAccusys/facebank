@@ -6,6 +6,7 @@ import 'package:pinput/pinput.dart';
 
 import '../../../../../config/constants/colors.dart';
 import '../../../../../config/constants/fonts_styles.dart';
+import '../../../../../core/common_functions.dart';
 import '../../../../widgets/custom_button.dart';
 import '../../../../widgets/underline_text_button.dart';
 
@@ -123,7 +124,13 @@ class Step6 extends StatelessWidget {
             height: 24,
           ),
           CustomButton(
-            onPressed: controller.nextButtonClicked,
+            onPressed: (){
+              controller.nextButton6Clicked();
+               CommonFunctions.showTopBanner(
+                  'Validacion exitosa!',
+                  '¡Estás en la última etapa!',
+                );
+            },
             text: 'Siguiente',
             buttonColor: brandMain,
           ),

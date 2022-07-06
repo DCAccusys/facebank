@@ -2,8 +2,6 @@ import 'package:facebank/src/config/constants/colors.dart';
 import 'package:facebank/src/config/constants/fonts_styles.dart';
 import 'package:facebank/src/core/fade_in_indexed_stack.dart';
 import 'package:facebank/src/presentation/pages/auth/register/register_controller.dart';
-import 'package:facebank/src/presentation/pages/auth/register/steps/step_1.dart';
-import 'package:facebank/src/presentation/pages/auth/register/steps/step_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
