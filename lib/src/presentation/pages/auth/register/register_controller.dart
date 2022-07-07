@@ -57,7 +57,7 @@ class RegisterController extends GetxController {
 
   /* INIT- Step1 Variables */
   TextEditingController userNameInputText = new TextEditingController();
-  RxBool isNextButtonEnabled = false.obs;
+  RxBool isNextButtonEnabled = true.obs;
   RxBool isKeyboardVisible = false.obs;
   /* END- Step1 Variables */
 
@@ -72,14 +72,14 @@ class RegisterController extends GetxController {
         filter: {"#": RegExp(r'[0-9]')},
         type: MaskAutoCompletionType.lazy,
       );
-  RxBool isNextButton2Enabled = false.obs;
+  RxBool isNextButton2Enabled = true.obs;
   /* END- Step2 Variables */
 
   /* INIT- Step3 Variables */
   TextEditingController tempPasswordInputText = new TextEditingController();
   RxBool isPasswordVisible = false.obs;
   RxBool isKeyboard3Visible = false.obs;
-  RxBool isNextButton3Enabled = false.obs;
+  RxBool isNextButton3Enabled = true.obs;
   /* END- Step3 Variables */
 
   /* INIT- Step4 Variables */
@@ -87,13 +87,13 @@ class RegisterController extends GetxController {
   TextEditingController confirmPasswordInputText = new TextEditingController();
   RxBool isNewPasswordVisible = false.obs;
   RxBool isConfirmPasswordVisible = false.obs;
-  RxBool isNextButton4Enabled = false.obs;
+  RxBool isNextButton4Enabled = true.obs;
   /* END- Step4 Variables */
 
   /* INIT- Step5 Variables */
   TextEditingController imageAliasInputText = new TextEditingController();
   RxBool isImageAliasVisible = false.obs;
-  RxBool isNextButton5Enabled = false.obs;
+  RxBool isNextButton5Enabled = true.obs;
   /* END- Step5 Variables */
 
   /* INIT- Step6 Variables */
@@ -103,6 +103,15 @@ class RegisterController extends GetxController {
   RxString get countDownMessage => this._countDownMessage;
   RxDouble _progressPercent = Utils.percentValue.obs;
   RxDouble get progressPercent => this._progressPercent;
+  /* END- Step6 Variables */
+
+  /* INIT- Step6 Variables */
+  ScrollController scrollController = new ScrollController();
+  RxBool _buttonFloatinVisible = true.obs;
+  RxBool get buttonFloatinVisible => this._buttonFloatinVisible;
+  RxBool _termsAndConditionChecked = false.obs;
+  RxBool get termsAndConditionChecked => this._termsAndConditionChecked;
+
   /* END- Step6 Variables */
 
   @override
@@ -154,10 +163,21 @@ class RegisterController extends GetxController {
     imageAliasInputText.addListener(() {
       this.isNextButton5Enabled.value =
           this.imageAliasInputText.text.isNotEmpty;
-      print('button 5 -> ${this.isNextButton5Enabled.value}');
     });
 
     /* END- Step5 Listener */
+
+    /* INIT- Step7 Listener */
+    this.scrollController.addListener(() {
+      if ((this.scrollController.position.maxScrollExtent - 150) <
+          this.scrollController.position.pixels) {
+        this._buttonFloatinVisible.value = true;
+      }
+      if((this.scrollController.position.maxScrollExtent - 50) <= this.scrollController.position.pixels){
+        this._buttonFloatinVisible.value = false;
+      }
+    });
+    /* END- Step7 Listener */
     super.onReady();
   }
 
@@ -301,4 +321,15 @@ class RegisterController extends GetxController {
   }
   /* END- Step6 methods */
 
+  /* INIT- Step7 methods */
+  void onBottomScrollClicked() {
+    this
+        .scrollController
+        .jumpTo(this.scrollController.position.maxScrollExtent);
+  }
+
+  void changeTermsAndConditionChecked(bool value){
+    this._termsAndConditionChecked.value = value;
+  }
+  /* END- Step7 methods */
 }

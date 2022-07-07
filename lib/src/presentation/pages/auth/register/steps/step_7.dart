@@ -29,6 +29,7 @@ class Step7 extends StatelessWidget {
                   width: double.infinity,
                   height: double.infinity,
                   child: SingleChildScrollView(
+                    controller: controller.scrollController,
                     physics: BouncingScrollPhysics(),
                     padding: EdgeInsets.only(
                       left: 16,
@@ -66,7 +67,12 @@ class Step7 extends StatelessWidget {
                     ),
                   ),
                 ),
-                _floatingButton(controller, context)
+                Obx(
+                  () => Visibility(
+                    visible: controller.buttonFloatinVisible.value,
+                    child: _floatingButton(controller, context),
+                  ),
+                ),
               ],
             ),
           ),
@@ -76,28 +82,31 @@ class Step7 extends StatelessWidget {
     );
   }
 
-  Widget _floatingButton(RegisterController conteoller, BuildContext context) {
+  Widget _floatingButton(RegisterController controller, BuildContext context) {
     return Positioned(
-                right: 14.5,
-                bottom: 18,
-                child: Visibility(
-                  visible: true,
-                  child: GestureDetector(
-                    onTap: () {},
-                    child: Container(
-                      width: 35,
-                      height: 35,
-                      decoration: BoxDecoration(
-                        color: aSecondDefault,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Center(
-                        child: SvgPicture.asset('assets/images/svg/download.svg', color: whiteColor,),
-                      ),
-                    ),
-                  ),
-                ),
-              );
+      right: 14.5,
+      bottom: 18,
+      child: Visibility(
+        visible: true,
+        child: GestureDetector(
+          onTap: controller.onBottomScrollClicked,
+          child: Container(
+            width: 35,
+            height: 35,
+            decoration: BoxDecoration(
+              color: aSecondDefault,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Center(
+              child: SvgPicture.asset(
+                'assets/images/svg/download.svg',
+                color: whiteColor,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
   Widget _bottomButton(RegisterController controller, BuildContext context) {
@@ -121,8 +130,10 @@ class Step7 extends StatelessWidget {
         () => Column(
           children: [
             CustomCheckbox(
-              isChecked: true,
-              onValueChange: (value) {},
+              isChecked: controller.termsAndConditionChecked.value,
+              onValueChange: (value) {
+                controller.changeTermsAndConditionChecked(value!);
+              },
               label: 'Acepto los términos y las condiciones',
             ),
             SizedBox(
