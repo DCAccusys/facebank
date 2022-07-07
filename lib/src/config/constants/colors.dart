@@ -20,6 +20,7 @@ final bgPrimary = Color(0xffF3F5F8);
 final bgTertiary = Color(0xffE0E6F1);
 
 
+final blackColor = Color(0xff000000);
 final whiteColor = Color(0xffFFFFFF);
 final blackColor025 = Color(0xff000000).withOpacity(0.25);
 final brandAccent = Color(0xff1F2836);
@@ -28,3 +29,8 @@ final greenSelection = Color(0xffD1F1F4);
 
 final aSecondDefault = Color(0xff1F2836);
 final actionTertiaryPressed = Color(0xffE1E7EF);
+
+
+final newsCardColor =  Color(0xffD0DAFD);
+
+

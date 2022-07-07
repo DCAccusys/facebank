@@ -1,3 +1,5 @@
+import 'package:facebank/src/config/constants/colors.dart';
+import 'package:facebank/src/config/constants/fonts_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -28,7 +30,7 @@ class HorizontalMenuItem extends StatelessWidget {
               width: 48,
               height: 48,
               decoration: BoxDecoration(
-                color: this.isActive ?? false ? Colors.black : Colors.white,
+                color: this.isActive ?? false ? blackColor : whiteColor,
                 borderRadius: BorderRadius.circular(100),
                 boxShadow: [
                   this.isBottomMenu
@@ -36,13 +38,20 @@ class HorizontalMenuItem extends StatelessWidget {
                           color: Colors.transparent,
                         )
                       : BoxShadow(
-                          color: Colors.black.withOpacity(0.09),
+                          color: blackColor.withOpacity(0.09),
                           offset: Offset(1, 1),
                         )
                 ],
               ),
               child: Center(
-                child: SvgPicture.asset(this.iconPath),
+                child: SvgPicture.asset(
+                  this.iconPath,
+                  color: !this.isBottomMenu
+                      ? blackColor
+                      : this.isActive ?? false
+                          ? whiteColor
+                          : blackColor,
+                ),
               ),
             ),
             SizedBox(
@@ -51,11 +60,10 @@ class HorizontalMenuItem extends StatelessWidget {
             Text(
               this.label,
               textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontWeight: FontWeight.w400,
-                  fontSize: 12,
-                  color: Color(0xff1F2836),
-                  height: 1.5),
+              style: CustomFontStyle.text400Normal12px(
+                textDefaultColor,
+                letterSpacing: true,
+              ),
             )
           ],
         ),

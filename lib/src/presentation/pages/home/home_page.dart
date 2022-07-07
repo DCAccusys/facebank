@@ -1,4 +1,6 @@
 import 'package:card_swiper/card_swiper.dart';
+import 'package:facebank/src/config/constants/colors.dart';
+import 'package:facebank/src/config/constants/fonts_styles.dart';
 import 'package:facebank/src/presentation/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -26,7 +28,7 @@ class HomePage extends GetView<HomeController> {
                 SliverAppBar(
                   title: MyAppBar(),
                   pinned: true,
-                  expandedHeight: responsive.hp(17),
+                  expandedHeight: 156,
                   flexibleSpace: FlexibleSpaceBar(
                     background: MyFlexiableAppBar(),
                   ),
@@ -39,7 +41,7 @@ class HomePage extends GetView<HomeController> {
                       top: 18,
                     ),
                     decoration: BoxDecoration(
-                      color: Color(0xffF3F5F8),
+                      color: bgPrimary,
                       borderRadius: BorderRadius.vertical(
                         top: Radius.circular(16),
                       ),
@@ -76,10 +78,8 @@ class HomePage extends GetView<HomeController> {
                             ),
                             Text(
                               'Novedades',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 16,
-                                color: Color(0xff677587),
+                              style: CustomFontStyle.text400Normal16px(
+                                textLighterColor,
                               ),
                             ),
                           ],
@@ -101,7 +101,7 @@ class HomePage extends GetView<HomeController> {
                                 ),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(8),
-                                  color: Color(0xffD0DAFD),
+                                  color: newsCardColor,
                                 ),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(8),
@@ -116,7 +116,7 @@ class HomePage extends GetView<HomeController> {
                                           decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(150),
-                                            color: Colors.white,
+                                            color: whiteColor,
                                           ),
                                         ),
                                       ),
@@ -125,7 +125,8 @@ class HomePage extends GetView<HomeController> {
                                         top: 18.5,
                                         child: GestureDetector(
                                           child: SvgPicture.asset(
-                                              'assets/images/svg/close.svg'),
+                                            'assets/images/svg/close.svg',
+                                          ),
                                         ),
                                       ),
                                       Positioned(
@@ -133,7 +134,8 @@ class HomePage extends GetView<HomeController> {
                                         bottom: 21.43,
                                         child: GestureDetector(
                                           child: Image.asset(
-                                              'assets/images/money-hand.png'),
+                                            'assets/images/money-hand.png',
+                                          ),
                                         ),
                                       ),
                                       Positioned.fill(
@@ -145,10 +147,10 @@ class HomePage extends GetView<HomeController> {
                                             children: [
                                               Text(
                                                 'Nuevos préstamos Online',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: 16,
-                                                  color: Color(0xff1F2836),
+                                                style: CustomFontStyle
+                                                    .text500Normal16px(
+                                                  textDefaultColor,
+                                                  isBold: true,
                                                 ),
                                               ),
                                               SizedBox(
@@ -156,38 +158,38 @@ class HomePage extends GetView<HomeController> {
                                               ),
                                               Text(
                                                 'No esperes más y accede al\npréstamo que necesitas.',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w400,
-                                                  fontSize: 14,
-                                                  color: Color(0xff677587),
-                                                  height: 1.5,
+                                                style: CustomFontStyle
+                                                    .text400Normal14px(
+                                                  textLighter2Color,
+                                                  letterSpacing: true,
                                                 ),
                                               ),
                                               SizedBox(
-                                                height: 1,
+                                                height: 11,
                                               ),
                                               ElevatedButton(
                                                 onPressed: () {},
                                                 child: Text(
                                                   'Conocer más',
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.w500,
-                                                    fontSize: 12,
-                                                    color: Color(0xff677587),
-                                                    height: 1.5,
+                                                  style: CustomFontStyle
+                                                      .text500Normal12px(
+                                                    textLighterColor,
+                                                    letterSpacing: true,
                                                   ),
                                                 ),
                                                 style: ElevatedButton.styleFrom(
                                                   shape: RoundedRectangleBorder(
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            8),
+                                                      8,
+                                                    ),
                                                   ),
                                                   padding: EdgeInsets.symmetric(
                                                     vertical: 8,
                                                     horizontal: 16,
                                                   ),
-                                                  primary: Colors.white,
+                                                  primary: whiteColor,
+                                                  elevation: 0,
                                                 ),
                                               )
                                             ],
@@ -215,12 +217,7 @@ class HomePage extends GetView<HomeController> {
                             ),
                             Text(
                               'Tarjetas',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 16,
-                                color: Color(0xff677587),
-                                height: 1.5,
-                              ),
+                              style: CustomFontStyle.text400Normal16px(textLighterColor)
                             )
                           ],
                         ),
@@ -359,11 +356,12 @@ class BottomMenu extends StatelessWidget {
       padding: EdgeInsets.only(top: 8, bottom: Platform.isIOS ? 30 : 8),
       width: double.infinity,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: whiteColor,
+        borderRadius: BorderRadius.vertical(top: Radius.circular(8)),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.08),
-            offset: Offset(0, -15),
+            offset: Offset(0, -5),
             blurRadius: 15,
           )
         ],
@@ -401,14 +399,14 @@ class MyAppBar extends StatelessWidget {
         Row(
           children: [
             ClipRRect(
-              borderRadius: BorderRadius.circular(100),
+              borderRadius: BorderRadius.circular(8),
               child: Container(
-                width: 40,
-                height: 40,
+                width: 28,
+                height: 28,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(100),
+                  borderRadius: BorderRadius.circular(8),
                   image: DecorationImage(
-                    image: AssetImage('assets/images/profile-demo.png'),
+                    image: AssetImage('assets/images/ISO-Fb-logo.png'),
                   ),
                 ),
               ),
@@ -418,11 +416,7 @@ class MyAppBar extends StatelessWidget {
             ),
             Text(
               'Hola Susana',
-              style: TextStyle(
-                color: Color(0xff1F2836),
-                fontWeight: FontWeight.w400,
-                fontSize: 16,
-              ),
+              style: CustomFontStyle.text400Normal16px(textDefaultColor)
             ),
           ],
         ),
@@ -448,8 +442,14 @@ class MyFlexiableAppBar extends StatelessWidget {
                 width: double.infinity,
                 height: 72,
                 decoration: BoxDecoration(
-                  color: Color(0xffB3E7ED),
+                  color: cardPrimaryDefaultColor,
                   borderRadius: BorderRadius.circular(8),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color(0xff97D1D8),
+                      offset: Offset(1, 1),
+                    ),
+                  ],
                 ),
                 child: Row(
                   children: [
@@ -457,12 +457,13 @@ class MyFlexiableAppBar extends StatelessWidget {
                       width: 27,
                       height: 27,
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: whiteColor,
                         borderRadius: BorderRadius.circular(100),
                       ),
                       child: Center(
                         child: SvgPicture.asset(
-                            'assets/images/svg/currency-dollar-simple.svg'),
+                          'assets/images/svg/currency-dollar-simple.svg',
+                        ),
                       ),
                     ),
                     SizedBox(
@@ -474,37 +475,31 @@ class MyFlexiableAppBar extends StatelessWidget {
                       children: [
                         Text(
                           'Saldo Actual',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 14,
-                            color: Color(0xff2D3748),
+                          style: CustomFontStyle.text500Normal14px(
+                            textDefaultColor,
+                            letterSpacing: true,
+                            isBold: true,
                           ),
                         ),
                         Text(
                           'Cuenta principal',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 12,
-                            color: Color(0xff2D3748),
+                          style: CustomFontStyle.text400Normal12px(
+                            textDefaultColor,
+                            letterSpacing: true,
                           ),
                         ),
                       ],
                     ),
                     Spacer(),
-                    Text(
-                      '\$4,500.00',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
-                        color: Color(0xff2D3748),
-                      ),
-                    ),
+                    Text('\$4,500.00',
+                        style: CustomFontStyle.text600Normal18px(
+                            textDefaultColor)),
                     SizedBox(
                       width: 11,
                     ),
                     SvgPicture.asset(
                       'assets/images/svg/eye-empty.svg',
-                      color: Color(0xff1F2836),
+                      color: textDefaultColor,
                     )
                   ],
                 ),

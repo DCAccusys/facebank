@@ -49,6 +49,14 @@ class CustomFontStyle {
         color: textColor,
       );
 
+  static text500Normal12px(Color textColor,
+          {bool? letterSpacing, bool? isBold}) =>
+      TextStyle(
+          fontSize: 12,
+          fontWeight: isBold ?? false ? FontWeight.bold : FontWeight.w500,
+          fontStyle: FontStyle.normal,
+          letterSpacing: letterSpacing ?? false ? 0.1 : null,
+          color: textColor);
   static text500Normal14px(Color textColor,
           {bool? letterSpacing, bool? isBold}) =>
       TextStyle(
@@ -65,8 +73,15 @@ class CustomFontStyle {
       color: textColor);
 
   static text600Normal16px(Color textColor, {bool? letterSpacing}) => TextStyle(
-      fontSize: 16,
-      fontWeight: FontWeight.w600,
-      fontStyle: FontStyle.normal,
-      color: textColor);
+        fontSize: 16,
+        fontWeight: FontWeight.w600,
+        fontStyle: FontStyle.normal,
+        color: textColor,
+      );
+  static text600Normal18px(Color textColor, {bool? letterSpacing}) => TextStyle(
+        fontSize: 18,
+        fontWeight: FontWeight.w600,
+        fontStyle: FontStyle.normal,
+        color: textColor,
+      );
 }
