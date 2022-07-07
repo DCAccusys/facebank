@@ -54,33 +54,38 @@ class RegisterPage extends GetView<RegisterController> {
             width: 16,
           ),
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Etapa 1: Registro',
-                  style: CustomFontStyle.text400Normal12px(
-                    textLighterColor,
+            child: Obx(
+              () => Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    controller.titlesString[controller.stackIndex.value],
+                    style: CustomFontStyle.text400Normal12px(
+                      textLighterColor,
+                    ),
                   ),
-                ),
-                Text(
-                  'Identificación',
-                  style: CustomFontStyle.text500Normal16px(
-                    textDefaultColor,
-                  ),
-                )
-              ],
+                  Text(
+                    controller.subtitlesString[controller.stackIndex.value],
+                    style: CustomFontStyle.text500Normal16px(
+                      textDefaultColor,
+                      isBold: true
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text(
-                'Paso 1/9',
-                style: CustomFontStyle.text400Normal12px(
-                  textLighterColor,
+              Obx(
+                () => Text(
+                  'Paso ${controller.stackIndex.value + 1}/9',
+                  style: CustomFontStyle.text400Normal12px(
+                    textLighterColor,
+                  ),
                 ),
               ),
             ],

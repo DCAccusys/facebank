@@ -83,20 +83,22 @@ class Step6 extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                CircularPercentIndicator(
-                  radius: 60.0,
-                  lineWidth: 10.0,
-                  circularStrokeCap: CircularStrokeCap.round,
-                  percent: 0.5,
-                  center: new Text(
-                    '4:56',
-                    style: CustomFontStyle.text500Normal16px(
-                      textDefaultColor,
-                      isBold: true,
+                Obx(
+                  () => CircularPercentIndicator(
+                    radius: 60.0,
+                    lineWidth: 10.0,
+                    circularStrokeCap: CircularStrokeCap.round,
+                    percent: controller.progressPercent.value,
+                    center: new Text(
+                      controller.countDownMessage.value,
+                      style: CustomFontStyle.text500Normal16px(
+                        textDefaultColor,
+                        isBold: true,
+                      ),
                     ),
+                    progressColor: cardPrimaryDefaultColor,
+                    backgroundColor: bgPrimary,
                   ),
-                  progressColor: cardPrimaryDefaultColor,
-                  backgroundColor: bgPrimary,
                 ),
               ],
             ),
@@ -117,19 +119,19 @@ class Step6 extends StatelessWidget {
           ),
           UnderlineTextButton(
             text: 'Reenviar contraseña',
-            onPressed: controller.resendTempPassword,
+            onPressed: controller.resendOtpCode,
             isBold: true,
           ),
           SizedBox(
             height: 24,
           ),
           CustomButton(
-            onPressed: (){
+            onPressed: () {
               controller.nextButton6Clicked();
-               CommonFunctions.showTopBanner(
-                  'Validacion exitosa!',
-                  '¡Estás en la última etapa!',
-                );
+              CommonFunctions.showTopBanner(
+                'Validacion exitosa!',
+                '¡Estás en la última etapa!',
+              );
             },
             text: 'Siguiente',
             buttonColor: brandMain,

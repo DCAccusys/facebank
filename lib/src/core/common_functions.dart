@@ -36,7 +36,7 @@ class CommonFunctions {
     Get.snackbar(
       '',
       'Alternative',
-      duration: Duration(seconds: 10),
+      duration: Duration(seconds: 3),
       messageText: Row(
         children: [
           SizedBox(

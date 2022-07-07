@@ -1,3 +1,4 @@
+import 'package:facebank/src/config/constants/utils.dart';
 import 'package:facebank/src/presentation/pages/auth/register/steps/step_3.dart';
 import 'package:facebank/src/presentation/pages/auth/register/steps/step_4.dart';
 import 'package:facebank/src/presentation/pages/auth/register/steps/step_5.dart';
@@ -16,6 +17,29 @@ import 'steps/step_2.dart';
 
 class RegisterController extends GetxController {
   late StreamSubscription<bool> keyboardSubscription;
+
+  List<String> subtitlesString = [
+    'Identificación',
+    'Datos personales',
+    'Envio de contraseña',
+    'Cambio de contraseña',
+    'Imagen y alias',
+    'Ingreso de código',
+    'Divulgaciones y Términos',
+    'Información W-8BEN',
+    'Confirmación W-8BEN'
+  ];
+  List<String> titlesString = [
+    'Registro',
+    'Registro',
+    'Claves',
+    'Claves',
+    'Claves',
+    'Validacion',
+    'Documentación',
+    'Documentación',
+    'Documentación',
+  ];
 
   List<Widget> steps = [
     Step1(),
@@ -71,6 +95,15 @@ class RegisterController extends GetxController {
   RxBool isImageAliasVisible = false.obs;
   RxBool isNextButton5Enabled = false.obs;
   /* END- Step5 Variables */
+
+  /* INIT- Step6 Variables */
+  Timer? _timer;
+  int _start = Utils.secondsToAwaitOtpCode;
+  RxString _countDownMessage = Utils.defaultTimeString.obs;
+  RxString get countDownMessage => this._countDownMessage;
+  RxDouble _progressPercent = Utils.percentValue.obs;
+  RxDouble get progressPercent => this._progressPercent;
+  /* END- Step6 Variables */
 
   @override
   void onReady() {
@@ -145,6 +178,7 @@ class RegisterController extends GetxController {
 
   // Common functions
   bool backButtonClicked() {
+    this._resetTimer();
     if (this._stackIndex.value != 0) {
       this._stackIndex.value--;
       return false;
@@ -223,14 +257,48 @@ class RegisterController extends GetxController {
     this.isImageAliasVisible.value = !this.isImageAliasVisible.value;
   }
 
-  /* END- Step5 methods */
-
-  /* INIT- Step5 methods */
-  void nextButton6Clicked() {
-
+  void nextButton5Clicked() {
     this._nextIndex();
+    this._startTimer();
   }
 
   /* END- Step5 methods */
+
+  /* INIT- Step6 methods */
+  void nextButton6Clicked() {
+    this._nextIndex();
+    this._resetTimer();
+  }
+
+  void resendOtpCode() {
+    this._resetTimer();
+  }
+
+  void _resetTimer() {
+    this._timer?.cancel();
+    this._start = Utils.secondsToAwaitOtpCode;
+    this._countDownMessage.value = Utils.defaultTimeString;
+    this._progressPercent.value = Utils.percentValue;
+  }
+
+  void _startTimer() {
+    const oneSec = Duration(seconds: 1);
+    this._timer = Timer.periodic(oneSec, (timer) {
+      if (_start == 0) {
+        timer.cancel();
+        this._start = Utils.secondsToAwaitOtpCode;
+      } else {
+        this._start--;
+        var date = new DateTime.fromMillisecondsSinceEpoch(this._start * 1000);
+        var seconds = date.second.toString().length == 1
+            ? '0${date.second}'
+            : '${date.second}';
+
+        this._countDownMessage.value = '0${date.minute}:$seconds';
+        this._progressPercent.value = this._start / Utils.secondsToAwaitOtpCode;
+      }
+    });
+  }
+  /* END- Step6 methods */
 
 }

@@ -109,7 +109,7 @@ class Step5 extends StatelessWidget {
           onPressed: controller.isNextButton5Enabled.value
               ? () {
                   CommonFunctions.hideKeyboard(context);
-                  controller.nextButton2Clicked();
+                  controller.nextButton5Clicked();
                 }
               : null,
           buttonColor: controller.isNextButton5Enabled.value
