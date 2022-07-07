@@ -6,6 +6,8 @@ import 'package:facebank/src/presentation/pages/auth/register/steps/step_6.dart'
 import 'package:facebank/src/presentation/pages/auth/register/steps/step_7.dart';
 import 'package:facebank/src/presentation/pages/auth/register/steps/step_8.dart';
 import 'package:facebank/src/presentation/pages/auth/register/steps/step_9.dart';
+import 'package:facebank/src/presentation/pages/home/home_binding.dart';
+import 'package:facebank/src/presentation/pages/home/home_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
@@ -177,7 +179,8 @@ class RegisterController extends GetxController {
           this.scrollController.position.pixels) {
         this._buttonFloatinVisible.value = true;
       }
-      if((this.scrollController.position.maxScrollExtent - 50) <= this.scrollController.position.pixels){
+      if ((this.scrollController.position.maxScrollExtent - 50) <=
+          this.scrollController.position.pixels) {
         this._buttonFloatinVisible.value = false;
       }
     });
@@ -215,6 +218,11 @@ class RegisterController extends GetxController {
   void _nextIndex() {
     if (this._stackIndex.value < steps.length - 1) {
       this._stackIndex.value++;
+    } else if (this._stackIndex.value == steps.length - 1) {
+      Get.off(
+        HomePage(),
+        binding: HomeBinding(),
+      );
     }
   }
 
@@ -333,14 +341,29 @@ class RegisterController extends GetxController {
         .jumpTo(this.scrollController.position.maxScrollExtent);
   }
 
-  void changeTermsAndConditionChecked(bool value){
+  void changeTermsAndConditionChecked(bool value) {
     this._termsAndConditionChecked.value = value;
+  }
+
+  void nextButton7Clicked() {
+    this._nextIndex();
   }
   /* END- Step7 methods */
 
   /* END- Step8 methods */
-  void onChangeContentExtendSatate(bool value){
+  void onChangeContentExtendSatate(bool value) {
     this._isContentExpanded.value = value;
   }
+
+  void nextButton8Clicked() {
+    this._nextIndex();
+  }
   /* END- Step8 methods */
+
+  /* END- Step9 methods */
+  void nextButton9Clicked() {
+    this._nextIndex();
+  }
+  /* END- Step9 methods */
+
 }

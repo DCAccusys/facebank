@@ -50,19 +50,19 @@ class HomePage extends GetView<HomeController> {
                           children: [
                             HorizontalMenuItem(
                               label: 'Compartir\ndatos',
-                              iconPath: 'assets/images/share-android.svg',
+                              iconPath: 'assets/images/svg/share-android.svg',
                             ),
                             HorizontalMenuItem(
                               label: 'Depositar\ncheque',
-                              iconPath: 'assets/images/lot-of-cash.svg',
+                              iconPath: 'assets/images/svg/lot-of-cash.svg',
                             ),
                             HorizontalMenuItem(
                               label: 'Realizar\ntransferencia',
-                              iconPath: 'assets/images/lot-of-cash.svg',
+                              iconPath: 'assets/images/svg/lot-of-cash.svg',
                             ),
                             HorizontalMenuItem(
                               label: 'Realizar\npago',
-                              iconPath: 'assets/images/lot-of-cash.svg',
+                              iconPath: 'assets/images/svg/lot-of-cash.svg',
                             ),
                           ],
                         ),
@@ -125,7 +125,7 @@ class HomePage extends GetView<HomeController> {
                                         top: 18.5,
                                         child: GestureDetector(
                                           child: SvgPicture.asset(
-                                              'assets/images/close.svg'),
+                                              'assets/images/svg/close.svg'),
                                         ),
                                       ),
                                       Positioned(
@@ -372,18 +372,18 @@ class BottomMenu extends StatelessWidget {
         children: [
           HorizontalMenuItem(
             label: 'Home',
-            iconPath: 'assets/images/home-simple-door.svg',
+            iconPath: 'assets/images/svg/home-simple-door.svg',
             isActive: true,
             isBottomMenu: true,
           ),
           HorizontalMenuItem(
             label: 'Home',
-            iconPath: 'assets/images/grid-add.svg',
+            iconPath: 'assets/images/svg/grid-add.svg',
             isBottomMenu: true,
           ),
           HorizontalMenuItem(
             label: 'Home',
-            iconPath: 'assets/images/menu.svg',
+            iconPath: 'assets/images/svg/menu.svg',
             isBottomMenu: true,
           ),
         ],
@@ -426,7 +426,7 @@ class MyAppBar extends StatelessWidget {
             ),
           ],
         ),
-        SvgPicture.asset('assets/images/bell-notification.svg')
+        SvgPicture.asset('assets/images/svg/bell-notification.svg')
       ],
     );
   }
@@ -462,7 +462,7 @@ class MyFlexiableAppBar extends StatelessWidget {
                       ),
                       child: Center(
                         child: SvgPicture.asset(
-                            'assets/images/currency-dollar-simple.svg'),
+                            'assets/images/svg/currency-dollar-simple.svg'),
                       ),
                     ),
                     SizedBox(
