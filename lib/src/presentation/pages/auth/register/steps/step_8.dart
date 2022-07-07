@@ -1,3 +1,4 @@
+import 'package:facebank/src/presentation/widgets/custom_input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -6,6 +7,7 @@ import '../../../../../config/constants/fonts_styles.dart';
 import '../../../../../core/common_functions.dart';
 import '../../../../widgets/custom_button.dart';
 import '../../../../../core/custom_expansion_tile.dart' as custom;
+import '../../../../widgets/custom_input_alt.dart';
 import '../register_controller.dart';
 
 class Step8 extends StatelessWidget {
@@ -28,7 +30,7 @@ class Step8 extends StatelessWidget {
                 padding: EdgeInsets.only(
                   left: 16,
                   right: 16,
-                  bottom: 16,
+                  bottom: 24,
                   top: 24,
                 ),
                 child: Column(
@@ -51,34 +53,76 @@ class Step8 extends StatelessWidget {
                     SizedBox(
                       height: 24,
                     ),
-                    Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          /* border: Border.all(
-                          color: borderDefaultColor,
-                        ), */
-                          color: whiteColor,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color(0xff000000).withOpacity(0.09),
-                              offset: Offset(1, 1),
+                    Obx(
+                      () => _expandedTile(controller),
+                    ),
+                    SizedBox(
+                      height: 32,
+                    ),
+                    CustomInputAlt(
+                      label: 'Nombre',
+                    ),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    CustomInputAlt(
+                      label: 'País de ciudadanía',
+                    ),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    CustomInputAlt(
+                      label: 'Dirección',
+                    ),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    CustomInputAlt(
+                      label: 'Ciudad',
+                    ),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    CustomInputAlt(
+                      label: 'Estado',
+                    ),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    CustomInputAlt(
+                      label: 'Código postal',
+                    ),
+                    SizedBox(
+                      height: 24,
+                    ),
+                    RichText(
+                      text: TextSpan(
+                        children: <TextSpan>[
+                          TextSpan(
+                            text:
+                                'Hay algún dato mal? Te puedes comunicar con el banco al ',
+                            style: CustomFontStyle.text400Normal14px(
+                              textLighterColor,
                             ),
-                          ]),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
-                        child: custom.ExpansionTile(
-                          title: Text('¿Qué es el formulario W-8BEN?'),
-                          // headerBackgroundColor: actionTertiaryPressed,
-                          onExpandedChange: (value) {
-                            print('Is expanded? -> $value');
-                          },
-                          children: [
-                            Text(
-                                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.')
-                          ],
-                        ),
+                          ),
+                          TextSpan(
+                            text: '123456789',
+                            style: CustomFontStyle.text400Normal14px(
+                              textLighterColor,
+                              isBold: true,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
+                    SizedBox(
+                      height: 24,
+                    ),
+                    CustomInputField(
+                      text: 'Número de identificación fiscal',
+                      placeholder: 'xxxxxxxxxxx',
+                      helperText: 'Este corresponde al de tu país',
+                    )
                   ],
                 ),
               ),
@@ -86,6 +130,35 @@ class Step8 extends StatelessWidget {
           ),
           this._bottomButton(controller, context)
         ],
+      ),
+    );
+  }
+
+  Widget _expandedTile(RegisterController controller) {
+    return Container(
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          color: whiteColor,
+          boxShadow: [
+            BoxShadow(
+              color: Color(0xff000000).withOpacity(0.09),
+              offset: Offset(1, 1),
+            ),
+          ]),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(8),
+        child: custom.ExpansionTile(
+          title: Text('¿Qué es el formulario W-8BEN?'),
+          headerBackgroundColor:
+              controller.isContentExpanded.value ? actionTertiaryPressed : null,
+          onExpandedChange: (value) {
+            controller.onChangeContentExtendSatate(value);
+          },
+          children: [
+            Text(
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.')
+          ],
+        ),
       ),
     );
   }

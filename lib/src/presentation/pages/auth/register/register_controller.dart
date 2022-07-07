@@ -105,14 +105,18 @@ class RegisterController extends GetxController {
   RxDouble get progressPercent => this._progressPercent;
   /* END- Step6 Variables */
 
-  /* INIT- Step6 Variables */
+  /* INIT- Step7 Variables */
   ScrollController scrollController = new ScrollController();
   RxBool _buttonFloatinVisible = true.obs;
   RxBool get buttonFloatinVisible => this._buttonFloatinVisible;
   RxBool _termsAndConditionChecked = false.obs;
   RxBool get termsAndConditionChecked => this._termsAndConditionChecked;
+  /* END- Step7 Variables */
 
-  /* END- Step6 Variables */
+  /* END- Step8 Variables */
+  RxBool _isContentExpanded = false.obs;
+  RxBool get isContentExpanded => this._isContentExpanded;
+  /* END- Step8 Variables */
 
   @override
   void onReady() {
@@ -193,6 +197,7 @@ class RegisterController extends GetxController {
     confirmPasswordInputText.dispose();
     imageAliasInputText.dispose();
     keyboardSubscription.cancel();
+    scrollController.dispose();
     super.onClose();
   }
 
@@ -332,4 +337,10 @@ class RegisterController extends GetxController {
     this._termsAndConditionChecked.value = value;
   }
   /* END- Step7 methods */
+
+  /* END- Step8 methods */
+  void onChangeContentExtendSatate(bool value){
+    this._isContentExpanded.value = value;
+  }
+  /* END- Step8 methods */
 }
