@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 
 class CustomFontStyle {
-  static text400Normal12px(Color textColor, {bool? letterSpacing}) => TextStyle(
+  static text400Normal12px(Color textColor,
+          {bool? letterSpacing, bool? isBold}) =>
+      TextStyle(
         fontSize: 12,
-        fontWeight: FontWeight.w400,
+        fontWeight: isBold ?? false ? FontWeight.bold : FontWeight.w400,
         letterSpacing: letterSpacing ?? false ? 0.1 : null,
         color: textColor,
         fontStyle: FontStyle.normal,

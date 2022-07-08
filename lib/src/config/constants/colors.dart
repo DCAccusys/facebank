@@ -23,6 +23,7 @@ final bgTertiary = Color(0xffE0E6F1);
 final blackColor = Color(0xff000000);
 final whiteColor = Color(0xffFFFFFF);
 final blackColor025 = Color(0xff000000).withOpacity(0.25);
+final blackColor009 = Color(0xff000000).withOpacity(0.09);
 final brandAccent = Color(0xff1F2836);
 final success100 = Color(0xff9AE6B4);
 final greenSelection = Color(0xffD1F1F4);

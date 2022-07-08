@@ -6,7 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
+import '../../widgets/credit_debit_card.dart';
 import '../../widgets/horizontal_menu_item.dart';
+import '../../widgets/informative_product_card.dart';
+import '../../widgets/news_card.dart';
 import 'home_page_controller.dart';
 import 'dart:io' show Platform;
 
@@ -15,7 +18,6 @@ class HomePage extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    final responsive = Responsive.of(context);
     return Scaffold(
       body: Stack(
         children: [
@@ -39,6 +41,7 @@ class HomePage extends GetView<HomeController> {
                   child: Container(
                     padding: EdgeInsets.only(
                       top: 18,
+                      bottom: 120,
                     ),
                     decoration: BoxDecoration(
                       color: bgPrimary,
@@ -48,26 +51,7 @@ class HomePage extends GetView<HomeController> {
                     ),
                     child: Column(
                       children: [
-                        Row(
-                          children: [
-                            HorizontalMenuItem(
-                              label: 'Compartir\ndatos',
-                              iconPath: 'assets/images/svg/share-android.svg',
-                            ),
-                            HorizontalMenuItem(
-                              label: 'Depositar\ncheque',
-                              iconPath: 'assets/images/svg/lot-of-cash.svg',
-                            ),
-                            HorizontalMenuItem(
-                              label: 'Realizar\ntransferencia',
-                              iconPath: 'assets/images/svg/lot-of-cash.svg',
-                            ),
-                            HorizontalMenuItem(
-                              label: 'Realizar\npago',
-                              iconPath: 'assets/images/svg/lot-of-cash.svg',
-                            ),
-                          ],
-                        ),
+                        _rowTopOptionMenu(controller, context),
                         SizedBox(
                           height: 16,
                         ),
@@ -87,126 +71,7 @@ class HomePage extends GetView<HomeController> {
                         SizedBox(
                           height: 12,
                         ),
-                        Container(
-                          width: double.infinity,
-                          height: 180,
-                          child: Swiper(
-                            itemBuilder: (BuildContext context, int index) {
-                              return Container(
-                                width: double.infinity,
-                                margin: EdgeInsets.only(
-                                  left: 16,
-                                  right: 16,
-                                  bottom: 24,
-                                ),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
-                                  color: newsCardColor,
-                                ),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(8),
-                                  child: Stack(
-                                    children: [
-                                      Positioned(
-                                        bottom: -40,
-                                        right: -30,
-                                        child: Container(
-                                          width: 134,
-                                          height: 134,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(150),
-                                            color: whiteColor,
-                                          ),
-                                        ),
-                                      ),
-                                      Positioned(
-                                        right: 11,
-                                        top: 18.5,
-                                        child: GestureDetector(
-                                          child: SvgPicture.asset(
-                                            'assets/images/svg/close.svg',
-                                          ),
-                                        ),
-                                      ),
-                                      Positioned(
-                                        right: 29,
-                                        bottom: 21.43,
-                                        child: GestureDetector(
-                                          child: Image.asset(
-                                            'assets/images/money-hand.png',
-                                          ),
-                                        ),
-                                      ),
-                                      Positioned.fill(
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(16),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                'Nuevos préstamos Online',
-                                                style: CustomFontStyle
-                                                    .text500Normal16px(
-                                                  textDefaultColor,
-                                                  isBold: true,
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: 8,
-                                              ),
-                                              Text(
-                                                'No esperes más y accede al\npréstamo que necesitas.',
-                                                style: CustomFontStyle
-                                                    .text400Normal14px(
-                                                  textLighter2Color,
-                                                  letterSpacing: true,
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: 11,
-                                              ),
-                                              ElevatedButton(
-                                                onPressed: () {},
-                                                child: Text(
-                                                  'Conocer más',
-                                                  style: CustomFontStyle
-                                                      .text500Normal12px(
-                                                    textLighterColor,
-                                                    letterSpacing: true,
-                                                  ),
-                                                ),
-                                                style: ElevatedButton.styleFrom(
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                      8,
-                                                    ),
-                                                  ),
-                                                  padding: EdgeInsets.symmetric(
-                                                    vertical: 8,
-                                                    horizontal: 16,
-                                                  ),
-                                                  primary: whiteColor,
-                                                  elevation: 0,
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              );
-                            },
-                            itemCount: 3,
-                            pagination: SwiperPagination(
-                              margin: EdgeInsets.only(top: 0),
-                            ),
-                          ),
-                        ),
+                        _swiperNewsCard(),
                         SizedBox(
                           height: 16,
                         ),
@@ -215,60 +80,40 @@ class HomePage extends GetView<HomeController> {
                             SizedBox(
                               width: 16,
                             ),
-                            Text(
-                              'Tarjetas',
-                              style: CustomFontStyle.text400Normal16px(textLighterColor)
-                            )
+                            Text('Tarjetas',
+                                style: CustomFontStyle.text400Normal16px(
+                                    textLighterColor))
                           ],
                         ),
                         SizedBox(
                           height: 11.43,
                         ),
-                        Container(
-                          width: double.infinity,
-                          height: 75,
-                          margin: EdgeInsets.symmetric(horizontal: 16),
-                          padding:
-                              EdgeInsets.symmetric(vertical: 18, horizontal: 8),
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(8),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.09),
-                                  offset: Offset(1, 1),
-                                )
-                              ]),
-                          child: Row(
-                            children: [
-                              Image.asset('assets/images/cards.png'),
-                              SizedBox(
-                                width: 18,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Solicita tu tarjeta Mastercard',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 14,
-                                      color: Color(0xff1F2836),
-                                    ),
-                                  ),
-                                  Text(
-                                    'Planifica tus consumos a tu manera.',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 12,
-                                      color: Color(0xff677587),
-                                    ),
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
+                        InformativeProductCard(
+                          title: 'Solicita tu tarjeta débito',
+                          description: 'Texto',
+                        ),
+                        SizedBox(
+                          height: 8,
+                        ),
+                        CreditOrDebitCardInfo(
+                          type: 'Débito',
+                          brand: 'Mastercard',
+                          maskedNumber: '**** **** **** 2085',
+                        ),
+                        SizedBox(
+                          height: 8,
+                        ),
+                        CreditOrDebitCardInfo(
+                          type: 'Crédito',
+                          brand: 'Mastercard',
+                          maskedNumber: '**** **** **** 9004',
+                        ),
+                        SizedBox(
+                          height: 8,
+                        ),
+                        InformativeProductCard(
+                          title: 'Solicita tu tarjeta crédito',
+                          description: 'Planifica tus consumos a tu manera. ',
                         ),
                         SizedBox(
                           height: 16,
@@ -278,53 +123,102 @@ class HomePage extends GetView<HomeController> {
                             SizedBox(
                               width: 16,
                             ),
-                            Text(
-                              'Tarjetas',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 16,
-                                color: Color(0xff677587),
-                                height: 1.5,
-                              ),
-                            )
+                            Text('Plazos fijos',
+                                style: CustomFontStyle.text400Normal16px(
+                                    textLighterColor))
                           ],
                         ),
                         SizedBox(
                           height: 16,
                         ),
-                        Container(
-                          margin: EdgeInsets.symmetric(horizontal: 16),
-                          width: double.infinity,
-                          height: 62,
-                          padding: EdgeInsets.symmetric(
-                              vertical: 9.5, horizontal: 8),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Row(
-                            children: [
-                              Icon(Icons.credit_card),
-                              SizedBox(
-                                width: 16,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text('Débito'),
-                                  Text('Mastercard '),
-                                ],
-                              ),
-                              Spacer(),
-                              Text(' **** **** **** 2085'),
-                              SizedBox(
-                                width: 8,
-                              ),
-                            ],
-                          ),
+                        InformativeProductCard(
+                          title: 'Solicita tu Plazo fijo',
+                          description: 'Texto',
                         ),
                         SizedBox(
-                          height: 120,
+                          height: 16,
+                        ),
+                        Container(
+                          width: double.infinity,
+                          height: 128,
+                          child: ListView.builder(
+                            padding: EdgeInsets.symmetric(horizontal: 16),
+                            physics: BouncingScrollPhysics(),
+                            itemCount: 5,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) {
+                              return Container(
+                                width: 251,
+                                padding: EdgeInsets.all(16),
+                                margin: EdgeInsets.only(
+                                  right: 8,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: whiteColor,
+                                  borderRadius: BorderRadius.circular(8),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: blackColor009,
+                                      offset: Offset(1, 1),
+                                    ),
+                                  ],
+                                ),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      width: 32.2,
+                                      height: 32.2,
+                                      padding: EdgeInsets.all(8),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(50),
+                                        color: bgTertiary,
+                                      ),
+                                      child: SvgPicture.asset('assets/images/svg/stat-up.svg'),
+                                    )
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
+                          /* child: Swiper(
+                            viewportFraction: 0.7,
+                            itemBuilder: (BuildContext context, int index) {
+                              return Container(
+                                width: 251,
+                                padding: EdgeInsets.all(16),
+                                margin: EdgeInsets.only(
+                                  right: 8,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: whiteColor,
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                              );
+                            },
+                            loop: false,
+                            itemCount: 3,
+                          ), */
+                        ),
+                        SizedBox(
+                          height: 16,
+                        ),
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: 16,
+                            ),
+                            Text('Préstamos',
+                                style: CustomFontStyle.text400Normal16px(
+                                    textLighterColor))
+                          ],
+                        ),
+                        SizedBox(
+                          height: 16,
+                        ),
+                        InformativeProductCard(
+                          title: 'Solicita tu préstamo hipotecario',
+                          description: 'Texto',
                         ),
                       ],
                     ),
@@ -337,21 +231,53 @@ class HomePage extends GetView<HomeController> {
             bottom: 0,
             right: 0,
             left: 0,
-            child: BottomMenu(),
+            child: _bottomMenu(controller, context),
           )
         ],
       ),
     );
   }
-}
 
-class BottomMenu extends StatelessWidget {
-  const BottomMenu({
-    Key? key,
-  }) : super(key: key);
+  Container _swiperNewsCard() {
+    return Container(
+      width: double.infinity,
+      height: 180,
+      child: Swiper(
+        itemBuilder: (BuildContext context, int index) {
+          return NewsCard();
+        },
+        itemCount: 3,
+        pagination: SwiperPagination(
+          margin: EdgeInsets.only(top: 0),
+        ),
+      ),
+    );
+  }
 
-  @override
-  Widget build(BuildContext context) {
+  Widget _rowTopOptionMenu(HomeController controller, BuildContext context) {
+    return Row(
+      children: [
+        HorizontalMenuItem(
+          label: 'Compartir\ndatos',
+          iconPath: 'assets/images/svg/share-android.svg',
+        ),
+        HorizontalMenuItem(
+          label: 'Depositar\ncheque',
+          iconPath: 'assets/images/svg/lot-of-cash.svg',
+        ),
+        HorizontalMenuItem(
+          label: 'Realizar\ntransferencia',
+          iconPath: 'assets/images/svg/lot-of-cash.svg',
+        ),
+        HorizontalMenuItem(
+          label: 'Realizar\npago',
+          iconPath: 'assets/images/svg/lot-of-cash.svg',
+        ),
+      ],
+    );
+  }
+
+  Widget _bottomMenu(HomeController conteoller, BuildContext context) {
     return Container(
       padding: EdgeInsets.only(top: 8, bottom: Platform.isIOS ? 30 : 8),
       width: double.infinity,
@@ -414,10 +340,8 @@ class MyAppBar extends StatelessWidget {
             SizedBox(
               width: 8,
             ),
-            Text(
-              'Hola Susana',
-              style: CustomFontStyle.text400Normal16px(textDefaultColor)
-            ),
+            Text('Hola Susana',
+                style: CustomFontStyle.text400Normal16px(textDefaultColor)),
           ],
         ),
         SvgPicture.asset('assets/images/svg/bell-notification.svg')
