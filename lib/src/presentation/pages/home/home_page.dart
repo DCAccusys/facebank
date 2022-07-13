@@ -7,8 +7,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 import '../../widgets/credit_debit_card.dart';
+import '../../widgets/fixed_term_card.dart';
 import '../../widgets/horizontal_menu_item.dart';
 import '../../widgets/informative_product_card.dart';
+import '../../widgets/lend_lease_item_card.dart';
 import '../../widgets/news_card.dart';
 import 'home_page_controller.dart';
 import 'dart:io' show Platform;
@@ -147,58 +149,14 @@ class HomePage extends GetView<HomeController> {
                             itemCount: 5,
                             scrollDirection: Axis.horizontal,
                             itemBuilder: (context, index) {
-                              return Container(
-                                width: 251,
-                                padding: EdgeInsets.all(16),
-                                margin: EdgeInsets.only(
-                                  right: 8,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: whiteColor,
-                                  borderRadius: BorderRadius.circular(8),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: blackColor009,
-                                      offset: Offset(1, 1),
-                                    ),
-                                  ],
-                                ),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      width: 32.2,
-                                      height: 32.2,
-                                      padding: EdgeInsets.all(8),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(50),
-                                        color: bgTertiary,
-                                      ),
-                                      child: SvgPicture.asset('assets/images/svg/stat-up.svg'),
-                                    )
-                                  ],
-                                ),
+                              return FixedTermCard(
+                                title: 'Plazo Fijo',
+                                subtitle:
+                                    'Con renovación del capital e intereses',
+                                amount: '\$2,500.00',
                               );
                             },
                           ),
-                          /* child: Swiper(
-                            viewportFraction: 0.7,
-                            itemBuilder: (BuildContext context, int index) {
-                              return Container(
-                                width: 251,
-                                padding: EdgeInsets.all(16),
-                                margin: EdgeInsets.only(
-                                  right: 8,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: whiteColor,
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                              );
-                            },
-                            loop: false,
-                            itemCount: 3,
-                          ), */
                         ),
                         SizedBox(
                           height: 16,
@@ -212,6 +170,14 @@ class HomePage extends GetView<HomeController> {
                                 style: CustomFontStyle.text400Normal16px(
                                     textLighterColor))
                           ],
+                        ),
+                        SizedBox(
+                          height: 16,
+                        ),
+                        LendLeaseItemCard(
+                          title: 'Préstamo',
+                          subtitle: 'Hipotecario taza fija 30 años',
+                          amount: '\$2,500.00',
                         ),
                         SizedBox(
                           height: 16,
