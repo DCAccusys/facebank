@@ -1,7 +1,7 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:facebank/src/config/constants/colors.dart';
 import 'package:facebank/src/config/constants/fonts_styles.dart';
-import 'package:facebank/src/presentation/utils/responsive.dart';
+import 'package:facebank/src/presentation/widgets/menu_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -30,6 +30,7 @@ class HomePage extends GetView<HomeController> {
               physics: BouncingScrollPhysics(),
               slivers: [
                 SliverAppBar(
+                  automaticallyImplyLeading: false,
                   title: MyAppBar(),
                   pinned: true,
                   expandedHeight: 156,
@@ -201,8 +202,95 @@ class HomePage extends GetView<HomeController> {
           )
         ],
       ),
+      drawer: _getDrawerMenu(),
     );
   }
+
+  Widget _getDrawerMenu() => Drawer(
+        child: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: EdgeInsets.only(
+                  left: 24,
+                  top: 24,
+                  bottom: 25,
+                ),
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(color: borderDefaultColor),
+                  ),
+                ),
+                child: Text(
+                  'Susana Rivera',
+                  style: CustomFontStyle.text500Normal18px(
+                    textLighterColor,
+                    isBold: true,
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: ListView.builder(
+                physics: BouncingScrollPhysics(),
+                padding: EdgeInsets.symmetric(
+                  vertical: 24,
+                  horizontal: 16,
+                ),
+                itemCount: controller.menuDrawerItems.length,
+                itemBuilder: (context, index) {
+                  final item = controller.menuDrawerItems[index];
+                  return Obx(
+                    () => CustomMenuItem(
+                      svgPath: item.svgPath,
+                      label: item.label,
+                      onPressed: () {
+                        controller.onChangeDrawerIndex(index);
+                        // TODO: navigate to another page
+                      },
+                      isActive: index == controller.currentDrawerIndex.value,
+                    ),
+                  );
+                },
+              )),
+              GestureDetector(
+                onTap: () {
+                  // TODO: logout event
+                },
+                child: Container(
+                  padding: EdgeInsets.only(
+                    left: 24,
+                    top: 24,
+                    bottom: 25,
+                  ),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    border: Border(
+                      top: BorderSide(color: borderDefaultColor),
+                    ),
+                  ),
+                  child: Row(
+                    children: [
+                      SvgPicture.asset('assets/images/svg/log-out.svg'),
+                      SizedBox(
+                        width: 8,
+                      ),
+                      Text(
+                        'Cerrar sesión',
+                        style: CustomFontStyle.text400Normal14px(
+                          textDefaultColor,
+                          letterSpacing: true,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
 
   Container _swiperNewsCard() {
     return Container(
@@ -259,11 +347,28 @@ class HomePage extends GetView<HomeController> {
         ],
       ),
       child: Row(
-        children: [
+          children: List.generate(
+        controller.bottomMenuItems.length,
+        (index) {
+          final item = controller.bottomMenuItems[index];
+          return Obx(
+            () => HorizontalMenuItem(
+              label: item.label,
+              iconPath: item.svgPath,
+              isBottomMenu: true,
+              isActive: index == controller.currentBottomMenuIndex.value,
+              onPressed: (){
+                controller.onChangeBottomMenuIndex(index);
+              },
+            ),
+          );
+        },
+      )
+
+          /*  [
           HorizontalMenuItem(
             label: 'Home',
             iconPath: 'assets/images/svg/home-simple-door.svg',
-            isActive: true,
             isBottomMenu: true,
           ),
           HorizontalMenuItem(
@@ -276,8 +381,8 @@ class HomePage extends GetView<HomeController> {
             iconPath: 'assets/images/svg/menu.svg',
             isBottomMenu: true,
           ),
-        ],
-      ),
+        ], */
+          ),
     );
   }
 }
@@ -290,15 +395,20 @@ class MyAppBar extends StatelessWidget {
       children: <Widget>[
         Row(
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: Container(
-                width: 28,
-                height: 28,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  image: DecorationImage(
-                    image: AssetImage('assets/images/ISO-Fb-logo.png'),
+            GestureDetector(
+              onTap: () {
+                Scaffold.of(context).openDrawer();
+              },
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Container(
+                  width: 28,
+                  height: 28,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    image: DecorationImage(
+                      image: AssetImage('assets/images/ISO-Fb-logo.png'),
+                    ),
                   ),
                 ),
               ),
