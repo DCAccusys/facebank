@@ -55,6 +55,12 @@ class HomeController extends GetxController {
         type: 'Configiración y seguridad'),
   ];
 
+  List<AccountItem> accountList = <AccountItem>[
+    AccountItem('Cuenta principal', '\$4,500.00', true,),
+    AccountItem('Cuenta principal', '\$4,500.00', false,),
+    AccountItem('Cuenta principal', '\$4,500.00', false,),
+  ];
+
   RxInt _currentDrawerIndex = 0.obs;
   RxInt get currentDrawerIndex => this._currentDrawerIndex;
 
@@ -80,4 +86,11 @@ class ItemMenu {
   final String? type;
 
   ItemMenu(this.svgPath, this.label, {this.type});
+}
+
+class AccountItem {
+  final String label;
+  final String amount;
+  final bool isPrimary;
+  AccountItem(this.label, this.amount, this.isPrimary);
 }

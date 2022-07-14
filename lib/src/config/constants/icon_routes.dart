@@ -34,6 +34,8 @@ class IconRoutes {
   static final String shoppingBagArrowUpSvg = 'assets/images/svg/shopping-bag-arrow-up.svg';
   static final String statUpSvg = 'assets/images/svg/stat-up.svg';
   static final String userCircleAltSvg = 'assets/images/svg/user-circle-alt.svg';
+  static final String arrowLeftSvg = 'assets/images/svg/arrow-left.svg';
+  static final String plusSvg = 'assets/images/svg/plus.svg';
 
   /* PNG */
   static final String cardsPng = 'assets/images/cards.png';
@@ -41,4 +43,6 @@ class IconRoutes {
   static final String logoFBWhitePng = 'assets/images/logo-fb-white.png';
   static final String mastercardPng = 'assets/images/mastercard.png';
   static final String moneyHandPng = 'assets/images/money-hand.png';
+  static final String iconDollarAccountPng = 'assets/images/icon-dollar-account.png';
+  static final String iconDollarAccountAltPng = 'assets/images/icon-dollar-account-alt.png';
 }

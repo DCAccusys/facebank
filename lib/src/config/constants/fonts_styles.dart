@@ -41,6 +41,16 @@ class CustomFontStyle {
         fontStyle: FontStyle.normal,
         decoration: withUnderline ?? false ? TextDecoration.underline : null,
       );
+  static text400Normal24px(Color textColor,
+          {bool? letterSpacing, bool? withUnderline}) =>
+      TextStyle(
+        fontSize: 24,
+        fontWeight: FontWeight.w400,
+        letterSpacing: letterSpacing ?? false ? 0.1 : null,
+        color: textColor,
+        fontStyle: FontStyle.normal,
+        decoration: withUnderline ?? false ? TextDecoration.underline : null,
+      );
 
   static text500Normal16px(Color textColor,
           {bool? letterSpacing, bool? isBold}) =>
@@ -78,11 +88,25 @@ class CustomFontStyle {
         color: textColor,
       );
 
-  static text500Normal28px(Color textColor, {bool? letterSpacing}) => TextStyle(
-      fontSize: 28,
-      fontWeight: FontWeight.w500,
-      fontStyle: FontStyle.normal,
-      color: textColor);
+  static text500Normal24px(Color textColor,
+          {bool? letterSpacing, bool? isBold}) =>
+      TextStyle(
+        fontSize: 24,
+        fontWeight: isBold ?? false ? FontWeight.bold : FontWeight.w500,
+        fontStyle: FontStyle.normal,
+        letterSpacing: letterSpacing ?? false ? 0.1 : null,
+        color: textColor,
+      );
+
+  static text500Normal28px(Color textColor,
+          {bool? letterSpacing, bool? isBold}) =>
+      TextStyle(
+        fontSize: 28,
+        fontWeight: isBold ?? false ? FontWeight.bold : FontWeight.w500,
+        fontStyle: FontStyle.normal,
+        letterSpacing: letterSpacing ?? false ? 0.1 : null,
+        color: textColor,
+      );
 
   static text600Normal16px(Color textColor, {bool? letterSpacing}) => TextStyle(
         fontSize: 16,

@@ -15,7 +15,7 @@ void main() async {
 
 Future<void> initialization() async {
   // TODO: Load resources or queries here!
-  await Future.delayed(Duration(seconds: 3));
+  await Future.delayed(Duration(seconds: 1));
 }
 
 class MyApp extends StatelessWidget {
