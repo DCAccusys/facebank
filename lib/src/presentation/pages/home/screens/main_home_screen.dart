@@ -26,11 +26,11 @@ class MainHomeScreen extends StatelessWidget {
         slivers: [
           SliverAppBar(
             automaticallyImplyLeading: false,
-            title: MyAppBar(),
+            title: _MyAppBar(),
             pinned: true,
             expandedHeight: 156,
             flexibleSpace: FlexibleSpaceBar(
-              background: MyFlexiableAppBar(),
+              background: _MyFlexiableAppBar(),
             ),
           ),
           SliverFillRemaining(
@@ -230,7 +230,7 @@ class MainHomeScreen extends StatelessWidget {
   }
 }
 
-class MyAppBar extends StatelessWidget {
+class _MyAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -269,7 +269,7 @@ class MyAppBar extends StatelessWidget {
   }
 }
 
-class MyFlexiableAppBar extends StatelessWidget {
+class _MyFlexiableAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(

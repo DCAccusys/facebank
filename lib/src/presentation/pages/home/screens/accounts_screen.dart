@@ -52,11 +52,14 @@ class AccountScreen extends StatelessWidget {
                       if (controller.accountList.length == index) {
                         return _addNewAccountButton(controller, context);
                       } else {
-                        final item = controller.accountList[index];
+                        final account = controller.accountList[index];
                         return AccountCardItem(
-                          label: item.label,
-                          amount: item.amount,
-                          isPrimary: item.isPrimary,
+                          label: account.label,
+                          amount: account.amount,
+                          isPrimary: account.isPrimary,
+                          onPressed: () {
+                            controller.onAccountClicked(account);
+                          },
                         );
                       }
                     },
@@ -73,7 +76,7 @@ class AccountScreen extends StatelessWidget {
   Widget _addNewAccountButton(HomeController controller, BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // TODO: add new account button implementation
+        controller.onAddAccountClicked();
       },
       child: Container(
         decoration: BoxDecoration(

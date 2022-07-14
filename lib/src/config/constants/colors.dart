@@ -34,3 +34,8 @@ final aSecondDefault = Color(0xff1F2836);
 final actionTertiaryPressed = Color(0xffE1E7EF);
 
 final newsCardColor = Color(0xffD0DAFD);
+final iconExitBackgroundColor = Color(0xffFFEDCA);
+final iconExitColor = Color(0xffAF4D17);
+final iconEntryBackgroundColor = Color(0xffD1F3F7);
+final iconEntryColor = Color(0xff003D44);
+final textOnButtonColor = Color(0xff1F2836);

@@ -36,6 +36,14 @@ class IconRoutes {
   static final String userCircleAltSvg = 'assets/images/svg/user-circle-alt.svg';
   static final String arrowLeftSvg = 'assets/images/svg/arrow-left.svg';
   static final String plusSvg = 'assets/images/svg/plus.svg';
+  static final String moreVertSvg = 'assets/images/svg/more-vert.svg';
+  static final String filtersSvg = 'assets/images/svg/filters.svg';
+  static final String receiveDollarsSvg = 'assets/images/svg/receive-dollars.svg';
+  static final String googleDocsSvg = 'assets/images/svg/google-docs.svg';
+  static final String emojiSvg = 'assets/images/svg/emoji.svg';
+  static final String editPencilSvg = 'assets/images/svg/edit-pencil.svg';
+  static final String infoEmptySvg = 'assets/images/svg/info-empty.svg';
+  static final String starOutlineSvg = 'assets/images/svg/star-outline.svg';
 
   /* PNG */
   static final String cardsPng = 'assets/images/cards.png';

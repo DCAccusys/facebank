@@ -1,4 +1,6 @@
 import 'package:facebank/src/config/constants/icon_routes.dart';
+import 'package:facebank/src/presentation/pages/account/account_binding.dart';
+import 'package:facebank/src/presentation/pages/account/account_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
@@ -56,9 +58,21 @@ class HomeController extends GetxController {
   ];
 
   List<AccountItem> accountList = <AccountItem>[
-    AccountItem('Cuenta principal', '\$4,500.00', true,),
-    AccountItem('Cuenta principal', '\$4,500.00', false,),
-    AccountItem('Cuenta principal', '\$4,500.00', false,),
+    AccountItem(
+      'Cuenta principal',
+      '\$4,500.00',
+      true,
+    ),
+    AccountItem(
+      'Cuenta principal',
+      '\$4,500.00',
+      false,
+    ),
+    AccountItem(
+      'Cuenta principal',
+      '\$4,500.00',
+      false,
+    ),
   ];
 
   RxInt _currentDrawerIndex = 0.obs;
@@ -77,6 +91,19 @@ class HomeController extends GetxController {
     this.pageController.jumpToPage(
           index,
         );
+  }
+
+  onAccountClicked(AccountItem account) {
+    Get.to(
+      () => AccountPage(),
+      binding: AccountBinding(),
+      arguments: account,
+      transition: Transition.rightToLeftWithFade,
+    );
+  }
+
+  onAddAccountClicked() {
+    print('Add account clicked');
   }
 }
 
