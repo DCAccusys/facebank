@@ -1,9 +1,8 @@
 import 'package:facebank/src/config/themes/app_theme.dart';
-import 'package:facebank/src/presentation/pages/home/home_page.dart';
+import 'package:facebank/src/presentation/pages/auth/login/login_binding.dart';
+import 'package:facebank/src/presentation/pages/auth/login/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import 'src/presentation/pages/home/home_binding.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,9 +25,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Facebank',
       // home: RegisterPage(),
-      home: HomePage(),
-      initialBinding: HomeBinding(),
+      //home: HomePage(),
+      home: LoginPage(),
+      //initialBinding: HomeBinding(),
       // initialBinding: RegisterBinding(),
+      initialBinding: LoginBinding(),
       theme: AppTheme.light(context),
     );
   }

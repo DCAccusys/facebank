@@ -1,10 +1,13 @@
 import 'package:facebank/src/config/constants/colors.dart';
 import 'package:facebank/src/config/constants/fonts_styles.dart';
 import 'package:facebank/src/config/constants/icon_routes.dart';
+import 'package:facebank/src/presentation/pages/account-detail/account-detail_binding.dart';
+import 'package:facebank/src/presentation/pages/account-detail/account-detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
+import '../../widgets/bottom_sheet_item.dart';
 import '../../widgets/custom_outline_button.dart';
 import '../../widgets/movement_card_item.dart';
 import 'account_controller.dart';
@@ -201,6 +204,13 @@ class AccountPage extends GetView<AccountController> {
           BottomShetItem(
             label: 'Detalle de cuenta',
             svgPath: IconRoutes.infoEmptySvg,
+            onPressed: () {
+              Get.to(
+                () => AccountDetailPage(),
+                binding: AccountDetailBinding(),
+                transition: Transition.rightToLeft,
+              );
+            },
           ),
           BottomShetItem(
             label: 'Cambiar alias',
@@ -286,57 +296,6 @@ class AccountPage extends GetView<AccountController> {
                 onPressed: () {},
               ),
             ],
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class BottomShetItem extends StatelessWidget {
-  final String svgPath;
-  final String label;
-  final VoidCallback? onPressed;
-  final bool? isLastItem;
-
-  const BottomShetItem({
-    super.key,
-    required this.svgPath,
-    required this.label,
-    this.onPressed,
-    this.isLastItem,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(
-        bottom: 18.5,
-        top: 18.5,
-        right: 8,
-        left: 16,
-      ),
-      decoration: BoxDecoration(
-        border: this.isLastItem ?? false
-            ? null
-            : Border(
-                bottom: BorderSide(
-                  color: borderDefaultColor,
-                ),
-              ),
-      ),
-      child: Row(
-        children: [
-          SvgPicture.asset(this.svgPath),
-          SizedBox(
-            width: 12,
-          ),
-          Text(
-            this.label,
-            style: CustomFontStyle.text400Normal14px(
-              textDefaultColor,
-              letterSpacing: true,
-            ),
           )
         ],
       ),
