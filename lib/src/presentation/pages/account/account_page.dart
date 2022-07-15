@@ -33,7 +33,6 @@ class AccountPage extends GetView<AccountController> {
             child: Container(
               padding: EdgeInsets.only(
                 top: 20,
-                bottom: 120,
                 left: 16,
                 right: 16,
               ),
@@ -158,21 +157,27 @@ class AccountPage extends GetView<AccountController> {
               ),
             ),
           ),
-          GestureDetector(
-            onTap: () {
-              print('Clicked 1');
+          IconButton(
+            splashColor: Colors.transparent,
+            hoverColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            padding: EdgeInsets.zero,
+            onPressed: () {
+              // TODO: Do something
+              print('Click 1');
             },
-            child: SvgPicture.asset(IconRoutes.shareSvg),
+            icon: SvgPicture.asset(IconRoutes.shareSvg),
           ),
-          SizedBox(
-            width: 24,
-          ),
-          GestureDetector(
-            onTap: () {
+          IconButton(
+            splashColor: Colors.transparent,
+            hoverColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            padding: EdgeInsets.zero,
+            onPressed: () {
               Get.bottomSheet(_buildBottomSheet(controller, context));
             },
-            child: SvgPicture.asset(IconRoutes.moreVertSvg),
-          )
+            icon: SvgPicture.asset(IconRoutes.moreVertSvg),
+          ),
         ],
       ),
     );
@@ -180,7 +185,7 @@ class AccountPage extends GetView<AccountController> {
 
   Widget _buildBottomSheet(AccountController controller, BuildContext context) {
     return Container(
-      height: 289,
+      height: 300,
       decoration: BoxDecoration(
         color: whiteColor,
         borderRadius: BorderRadius.vertical(

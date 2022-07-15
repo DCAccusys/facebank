@@ -1,4 +1,3 @@
-import 'package:facebank/src/config/constants/icon_routes.dart';
 import 'package:get/get.dart';
 
 class AccountController extends GetxController {
