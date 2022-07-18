@@ -1,4 +1,8 @@
 import 'package:facebank/src/config/themes/app_theme.dart';
+import 'package:facebank/src/core/app_config.dart';
+import 'package:facebank/src/data/repositories/configuration_repository_impl.dart';
+import 'package:facebank/src/data/models/request/get_initial_configuration_request.dart';
+import 'package:facebank/src/domain/repositories/configuration_repository.dart';
 import 'package:facebank/src/presentation/pages/auth/login/login_binding.dart';
 import 'package:facebank/src/presentation/pages/auth/login/login_page.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +17,12 @@ void main() async {
 }
 
 Future<void> initialization() async {
-  // TODO: Load resources or queries here!
-  await Future.delayed(Duration(seconds: 1));
+  final IConfigurationRepository configurationRepository =
+      ConfigurationRepositoryImpl();
+  final request = InitialConfifurationRequest(
+      indentifier: AppConfig.CHANNEL_MOBILE_BANKING);
+  // We get the initial configuration here!
+  await configurationRepository.getInitialConfiguration(request);
 }
 
 class MyApp extends StatelessWidget {

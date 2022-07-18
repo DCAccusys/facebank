@@ -1,4 +1,7 @@
 class AppConfig {
+  // WS Channel
+  static final String CHANNEL_MOBILE_BANKING = 'CHANEL_MOBILE_BANKING';
+
   static final String BASE_URL = 'http://66.231.245.91:91';
   static final String TEMP_CULTURE = 'ES-VE';
   static final String KEY_TO_ENCRYPT =
@@ -7,6 +10,14 @@ class AppConfig {
   // METHOD CHANNELS
   static final String ENCRYPT_PASS_METHOD_CHANNEL =
       'accusys.facebank.com/encrypt';
+  static final String ID_METHOD_CHANNEL = 'accusys.facebank.com/udid';
   // ACTIONS METHOD CHANNELS
   static final String ENCRYPT_PASS_ACTION = 'e_password';
+  static final String ENCRYPT_DATA_ACTION = 'encrypt';
+  static final String DECRYPT_DATA_ACTION = 'decrypt';
+  static final String UNIQUE_ID_ACTION = 'udid';
+
+  // KEY TO MAP DATA
+  static final String SESSION_ID_KEY = 'sessionId';
+  static final String DATA_KEY = 'data';
 }

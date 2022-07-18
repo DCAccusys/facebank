@@ -1,4 +1,4 @@
-import 'package:facebank/src/data/datasources/remote/auth_repository_imp.dart';
+import 'package:facebank/src/data/repositories/security_repository_impl.dart';
 import 'package:facebank/src/presentation/pages/auth/login/login_controller.dart';
 import 'package:get/get.dart';
 
@@ -7,7 +7,7 @@ class LoginBinding implements Bindings {
   void dependencies() {
     Get.lazyPut(
       () => LoginController(
-        authRepository:  AuthRepositoryImp(),
+        securityRepository: SecurityRepositoryImpl(),
       ),
     );
   }

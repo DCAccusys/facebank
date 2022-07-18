@@ -46,6 +46,7 @@ class LoginPage extends GetView<LoginController> {
                     left: 16,
                     right: 16,
                     top: 24,
+                    bottom: 16,
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

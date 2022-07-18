@@ -1,13 +1,23 @@
 import 'package:facebank/src/core/app_config.dart';
-import 'package:facebank/src/data/models/request/auth_login_request.dart';
-import 'package:facebank/src/domain/repositories/auth_repository.dart';
+import 'package:facebank/src/core/key_storage.dart';
+import 'package:facebank/src/data/datasource/local/secure_storage_service.dart';
+import 'package:facebank/src/data/models/request/login_request.dart';
+import 'package:facebank/src/data/models/request/validate_existing_alias_request.dart';
+import 'package:facebank/src/domain/repositories/security_repository.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-class LoginController extends GetxController {
-  AuthRepository authRepository;
+import '../image_alias_otp/image_alias_binding.dart';
+import '../image_alias_otp/image_alias_page.dart';
 
-  LoginController({required this.authRepository});
+class LoginController extends GetxController {
+  static final _methodChannel =
+      MethodChannel(AppConfig.ENCRYPT_PASS_METHOD_CHANNEL);
+
+  ISecurityRepository securityRepository;
+
+  LoginController({required this.securityRepository});
 
   TextEditingController userInputController = new TextEditingController();
   TextEditingController passwordInputController = new TextEditingController();
@@ -15,25 +25,78 @@ class LoginController extends GetxController {
   RxBool _isPasswordVisible = false.obs;
   RxBool get isPasswordVisible => this._isPasswordVisible;
 
+  @override
+  void onReady() {
+    this.userInputController.text = 'op048789';
+    this.passwordInputController.text = '123ewq';
+    super.onReady();
+  }
+
   onSigninButtonClicked() async {
-    if (this.userInputController.text.isNotEmpty &&
-        this.passwordInputController.text.isNotEmpty) {
-      final request = AuthLoginRequest(
-        phoneNumber: '0541234567890',
-        phoneUdid: '',
-        login: this.userInputController.text,
-        password: this.passwordInputController.text,
-        terminal: 'mobile',
-        culture: AppConfig.TEMP_CULTURE,
-      );
-      final result = await this.authRepository.doLogin(request);
-      print('Success');
+    // Get encrypted password
+    final password = await this._getEncryptedPassword();
+    final storage = await SecureStorageService.sss.secureStorage;
+    final phoneUdid = await storage.read(key: KeyStorage.UDID) ?? '';
+
+    final request = LoginRequest(
+      phoneNumber: '0541234567890',
+      phoneUdid: phoneUdid,
+      login: this.userInputController.text,
+      password: password,
+      terminal: 'term-cell',
+      culture: AppConfig.TEMP_CULTURE,
+    );
+
+    final response = await this.securityRepository.login(request);
+
+    if (response != null) {
+      if (response.success) {
+        await _validateExistingAlias(
+          request.login,
+          phoneUdid,
+          request.phoneNumber,
+        );
+
+       /*  Get.to(
+          () => ImageAliasOTPPage(),
+          binding: ImageAliasOTPBinding(),
+          transition: Transition.rightToLeft,
+        ); */
+      } else {
+        // TODO: USER OR PASSWORD NOT VALID
+      }
     } else {
-      print('Show input message error');
+      // TODO: SERVER ERROR
     }
   }
 
   changePasswordVisibility() {
     this._isPasswordVisible.value = !this._isPasswordVisible.value;
+  }
+
+  Future<String> _getEncryptedPassword() async {
+    // Mapp data to send to channel
+    final mappData = {
+      'key': AppConfig.KEY_TO_ENCRYPT,
+      'password': this.passwordInputController.text
+    };
+
+    // Endrypt password
+    final encryptPass = await _methodChannel.invokeMethod(
+        AppConfig.ENCRYPT_PASS_ACTION, mappData);
+
+    return encryptPass as String;
+  }
+
+  Future<void> _validateExistingAlias(
+      String userName, String phoneUdid, String phoneNumber) async {
+    final request = ValidateExistingAliasRequest(
+      phoneNumber: phoneNumber,
+      phoneUdid: phoneUdid,
+      userName: userName,
+      culture: AppConfig.TEMP_CULTURE,
+    );
+
+    await securityRepository.validateExistingAlias(request);
   }
 }

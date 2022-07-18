@@ -1,6 +1,8 @@
 package com.example.facebank
 
+import android.annotation.SuppressLint
 import android.os.Build
+import android.provider.Settings
 import android.util.Base64
 import androidx.annotation.RequiresApi
 import io.flutter.embedding.android.FlutterActivity
@@ -21,11 +23,30 @@ class MainActivity : FlutterActivity() {
         private const val ENCRYPT_PASS_ACTION = "e_password"
         private const val ENCRYPT_DATA = "encrypt"
         private const val DECRYPT_DATA = "decrypt"
+
+        // ANDROID ID
+        private const val CHANNEL_ID = "accusys.facebank.com/udid"
+        private const val ID_ACTION = "udid"
+
+
     }
 
+    @SuppressLint("HardwareIds")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
+
+        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNEL_ID).setMethodCallHandler { call, result ->
+            when(call.method){
+                ID_ACTION -> {
+                    val udid = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID);
+                    result.success(udid)
+                }
+                else -> {
+                    result.notImplemented()
+                }
+            }
+        }
 
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNEL).setMethodCallHandler { call, result ->
 

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-class AuthLoginResponse {
-  AuthLoginResponse({
+class LoginResponse {
+  LoginResponse({
     required this.success,
     required this.message,
     required this.sessionId,
@@ -25,13 +25,13 @@ class AuthLoginResponse {
   final String lastConnection;
   final String pushActive;
 
-  factory AuthLoginResponse.fromJson(String str) =>
-      AuthLoginResponse.fromMap(json.decode(str));
+  factory LoginResponse.fromJson(String str) =>
+      LoginResponse.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory AuthLoginResponse.fromMap(Map<String, dynamic> json) =>
-      AuthLoginResponse(
+  factory LoginResponse.fromMap(Map<String, dynamic> json) =>
+      LoginResponse(
         success: json["success"],
         message: json["message"],
         sessionId: json["sessionId"],

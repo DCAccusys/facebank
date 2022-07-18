@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-class AuthLoginRequest {
-  AuthLoginRequest({
+class LoginRequest {
+  LoginRequest({
     required this.phoneNumber,
     required this.phoneUdid,
     required this.login,
@@ -17,13 +17,13 @@ class AuthLoginRequest {
   String terminal;
   String culture;
 
-  factory AuthLoginRequest.fromJson(String str) =>
-      AuthLoginRequest.fromMap(json.decode(str));
+  factory LoginRequest.fromJson(String str) =>
+      LoginRequest.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory AuthLoginRequest.fromMap(Map<String, dynamic> json) =>
-      AuthLoginRequest(
+  factory LoginRequest.fromMap(Map<String, dynamic> json) =>
+      LoginRequest(
         phoneNumber: json["phoneNumber"],
         phoneUdid: json["phoneUdid"],
         login: json["login"],
