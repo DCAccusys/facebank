@@ -1,10 +1,18 @@
+import 'package:facebank/src/data/models/request/data_request.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../config/constants/colors.dart';
 import '../config/constants/fonts_styles.dart';
+import '../data/datasource/local/secure_storage_service.dart';
+import 'app_config.dart';
+import 'key_storage.dart';
 
 class CommonFunctions {
+  static final _methodChannel =
+      MethodChannel(AppConfig.ENCRYPT_PASS_METHOD_CHANNEL);
+
   static void hideKeyboard(BuildContext context) {
     FocusScopeNode currentFocus = FocusScope.of(context);
     if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
@@ -82,5 +90,37 @@ class CommonFunctions {
       borderRadius: 8,
       backgroundColor: brandAccent,
     );
+  }
+
+  static Future<DataRequest> encryptRequest(String stringRequest) async {
+    final storage = await SecureStorageService.sss.secureStorage;
+
+    // We need encript request Data before to send
+    final sessionId = await storage.read(key: KeyStorage.SESSION_ID);
+    final mappData = {
+      AppConfig.SESSION_ID_KEY: sessionId,
+      AppConfig.DATA_KEY: stringRequest,
+    };
+
+    final data = await _methodChannel.invokeMethod(
+        AppConfig.ENCRYPT_DATA_ACTION, mappData);
+
+    return DataRequest(data: data);
+  }
+
+  static Future<String> decryptResponse(String stringResponse) async {
+    final storage = await SecureStorageService.sss.secureStorage;
+
+    // We need encript request Data before to send
+    final sessionId = await storage.read(key: KeyStorage.SESSION_ID);
+    final mappData = {
+      AppConfig.SESSION_ID_KEY: sessionId,
+      AppConfig.DATA_KEY: stringResponse,
+    };
+
+    final data = await _methodChannel.invokeMethod(
+        AppConfig.DECRYPT_DATA_ACTION, mappData);
+
+    return data;
   }
 }

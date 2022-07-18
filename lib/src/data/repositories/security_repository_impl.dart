@@ -1,24 +1,18 @@
-import 'dart:convert';
-
-import 'package:dio/dio.dart';
+import 'package:facebank/src/core/common_functions.dart';
 import 'package:facebank/src/core/key_storage.dart';
 import 'package:facebank/src/data/datasource/local/secure_storage_service.dart';
 import 'package:facebank/src/data/datasource/remote/dio_service.dart';
-import 'package:facebank/src/data/models/request/data_request.dart';
+import 'package:facebank/src/data/models/request/get_image_alias_request.dart';
 import 'package:facebank/src/data/models/request/validate_existing_alias_request.dart';
-import 'package:facebank/src/data/models/response/data_response.dart';
+import 'package:facebank/src/data/models/response/get_image_alias_response.dart';
 import 'package:facebank/src/data/models/response/login_response.dart';
 import 'package:facebank/src/data/models/request/login_request.dart';
 import 'package:facebank/src/data/models/response/validate_image_alias_response.dart';
+import 'package:facebank/src/data/repositories/base_repository.dart';
 import 'package:facebank/src/domain/repositories/security_repository.dart';
-import 'package:flutter/services.dart';
 
-import '../../core/app_config.dart';
-
-class SecurityRepositoryImpl implements ISecurityRepository {
-  static final _methodChannel =
-      MethodChannel(AppConfig.ENCRYPT_PASS_METHOD_CHANNEL);
-
+class SecurityRepositoryImpl extends BaseRepository
+    implements ISecurityRepository {
   static const _host = '/security';
 
   @override
@@ -52,45 +46,31 @@ class SecurityRepositoryImpl implements ISecurityRepository {
   Future<ValidateExistingAliasResponse?> validateExistingAlias(
       ValidateExistingAliasRequest request) async {
     final endpoint = '$_host/API2/validateExistingAlias';
-    final dio = await DioService.dio.dioService;
     final storage = await SecureStorageService.sss.secureStorage;
 
-    // We need encript request Data before to send
-    final sessionId = await storage.read(key: KeyStorage.SESSION_ID);
-    final cookie = await storage.read(key: KeyStorage.COOKIES);
+    final dataResponse = await this.call(endpoint, request.toJson());
+    if (dataResponse.success) {
+      // We need decript data
+      final jsonData = await CommonFunctions.decryptResponse(dataResponse.data);
+      final response = ValidateExistingAliasResponse.fromJson(jsonData);
+      await storage.write(
+          key: KeyStorage.HAS_IMAGE_ALIAS, value: response.success.toString());
+      return response;
+    }
+    return null;
+  }
 
-    final mappData = {
-      AppConfig.SESSION_ID_KEY: sessionId,
-      AppConfig.DATA_KEY: request.toJson(),
-    };
+  @override
+  Future<GetImageAliasResponse?> getImageAlias(
+      GetImageAliasRequest request) async {
+    final endpoint = '$_host/API2/getAliasImage';
 
-    final data = await _methodChannel.invokeMethod(
-        AppConfig.ENCRYPT_DATA_ACTION, mappData);
-
-    final requestData = DataRequest(data: data);
-
-    final result = await dio.post(
-      endpoint,
-      data: requestData.toJson(),
-      options: Options(
-        headers: {'cookie': cookie},
-      ),
-    );
-
-    final dataResponse = DataResponse.fromMap(result.data);
+    final dataResponse = await this.call(endpoint, request.toJson());
 
     if (dataResponse.success) {
       // We need decript data
-      final mappDataToDecrypt = {
-        AppConfig.SESSION_ID_KEY: sessionId,
-        AppConfig.DATA_KEY: dataResponse.data,
-      };
-
-      final decrypt = await _methodChannel.invokeMethod(
-          AppConfig.DECRYPT_DATA_ACTION, mappDataToDecrypt);
-      final response = ValidateExistingAliasResponse.fromJson(decrypt);
-      await storage.write(
-          key: KeyStorage.HAS_IMAGE_ALIAS, value: response.success.toString());
+      final jsonData = await CommonFunctions.decryptResponse(dataResponse.data);
+      final response = GetImageAliasResponse.fromJson(jsonData);
       return response;
     }
     return null;

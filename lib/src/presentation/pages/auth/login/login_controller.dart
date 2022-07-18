@@ -57,11 +57,11 @@ class LoginController extends GetxController {
           request.phoneNumber,
         );
 
-       /*  Get.to(
+        Get.to(
           () => ImageAliasOTPPage(),
           binding: ImageAliasOTPBinding(),
           transition: Transition.rightToLeft,
-        ); */
+        );
       } else {
         // TODO: USER OR PASSWORD NOT VALID
       }

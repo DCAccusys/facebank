@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -69,25 +71,45 @@ class ImageAliasScreen extends StatelessWidget {
     );
   }
 
-  Widget _getGridView(ImageAliasOTPController controller, BuildContext context) {
-    return GridView.count(
-      primary: false,
-      crossAxisSpacing: 8.2,
-      mainAxisSpacing: 8.2,
-      crossAxisCount: 4,
-      children: List.generate(
-        8,
-        (index) => Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5.13),
-            color: bgTertiary,
-          ),
-        ),
+  Widget _getGridView(
+      ImageAliasOTPController controller, BuildContext context) {
+    return Obx(
+      () => GridView.count(
+        primary: false,
+        crossAxisSpacing: 8.2,
+        mainAxisSpacing: 8.2,
+        crossAxisCount: 4,
+        children: controller.gettingImages.value
+            ? List.generate(
+                8,
+                (index) => Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5.13),
+                    color: bgTertiary,
+                  ),
+                ),
+              )
+            : List.generate(controller.imagesAliasItems.length, (index) {
+                final imageItem = controller.imagesAliasItems[index];
+                return ClipRRect(
+                  borderRadius: BorderRadius.circular(5.13),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5.13),
+                    ),
+                    child: Image.memory(
+                      base64Decode(imageItem.imgData),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                );
+              }),
       ),
     );
   }
 
-  Widget _bottomButton(ImageAliasOTPController controller, BuildContext context) {
+  Widget _bottomButton(
+      ImageAliasOTPController controller, BuildContext context) {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(16),
