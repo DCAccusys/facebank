@@ -123,4 +123,17 @@ class CommonFunctions {
 
     return data;
   }
+
+  static Future<String> encryptPasswordOrAlias(String passwordOrAlias) async {
+    final mappData = {
+      'key': AppConfig.KEY_TO_ENCRYPT,
+      'password': passwordOrAlias
+    };
+
+    // Endrypt password
+    final encryptPass = await _methodChannel.invokeMethod(
+        AppConfig.ENCRYPT_PASS_ACTION, mappData);
+
+    return encryptPass as String;
+  }
 }

@@ -1,4 +1,5 @@
 import 'package:facebank/src/core/app_config.dart';
+import 'package:facebank/src/core/common_functions.dart';
 import 'package:facebank/src/core/key_storage.dart';
 import 'package:facebank/src/data/datasource/local/secure_storage_service.dart';
 import 'package:facebank/src/data/models/request/login_request.dart';
@@ -34,7 +35,8 @@ class LoginController extends GetxController {
 
   onSigninButtonClicked() async {
     // Get encrypted password
-    final password = await this._getEncryptedPassword();
+    final password = await CommonFunctions.encryptPasswordOrAlias(
+        this.passwordInputController.text);
     final storage = await SecureStorageService.sss.secureStorage;
     final phoneUdid = await storage.read(key: KeyStorage.UDID) ?? '';
 
@@ -72,20 +74,6 @@ class LoginController extends GetxController {
 
   changePasswordVisibility() {
     this._isPasswordVisible.value = !this._isPasswordVisible.value;
-  }
-
-  Future<String> _getEncryptedPassword() async {
-    // Mapp data to send to channel
-    final mappData = {
-      'key': AppConfig.KEY_TO_ENCRYPT,
-      'password': this.passwordInputController.text
-    };
-
-    // Endrypt password
-    final encryptPass = await _methodChannel.invokeMethod(
-        AppConfig.ENCRYPT_PASS_ACTION, mappData);
-
-    return encryptPass as String;
   }
 
   Future<void> _validateExistingAlias(

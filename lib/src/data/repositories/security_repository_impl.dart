@@ -4,6 +4,7 @@ import 'package:facebank/src/data/datasource/local/secure_storage_service.dart';
 import 'package:facebank/src/data/datasource/remote/dio_service.dart';
 import 'package:facebank/src/data/models/request/get_image_alias_request.dart';
 import 'package:facebank/src/data/models/request/validate_existing_alias_request.dart';
+import 'package:facebank/src/data/models/request/validate_image_alias_request.dart';
 import 'package:facebank/src/data/models/response/get_image_alias_response.dart';
 import 'package:facebank/src/data/models/response/login_response.dart';
 import 'package:facebank/src/data/models/request/login_request.dart';
@@ -74,5 +75,17 @@ class SecurityRepositoryImpl extends BaseRepository
       return response;
     }
     return null;
+  }
+
+  @override
+  Future<void> validateImagenAlias(ValidateImagenAliasRequest request) async {
+    final endpoint = '$_host/API2/validateImagenAlias';
+
+    final dataResponse = await this.call(endpoint, request.toJson());
+
+    if(dataResponse.success){
+      final jsonData = await CommonFunctions.decryptResponse(dataResponse.data);
+      print('');
+    }
   }
 }

@@ -1,7 +1,9 @@
 import 'dart:convert';
 
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../../../config/constants/colors.dart';
 import '../../../../../config/constants/fonts_styles.dart';
@@ -82,24 +84,72 @@ class ImageAliasScreen extends StatelessWidget {
         children: controller.gettingImages.value
             ? List.generate(
                 8,
-                (index) => Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5.13),
-                    color: bgTertiary,
+                (index) => Shimmer.fromColors(
+                  baseColor: bgTertiary,
+                  highlightColor: bgTertiary.withOpacity(0.6),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5.13),
+                      color: bgTertiary,
+                    ),
                   ),
                 ),
               )
             : List.generate(controller.imagesAliasItems.length, (index) {
                 final imageItem = controller.imagesAliasItems[index];
-                return ClipRRect(
-                  borderRadius: BorderRadius.circular(5.13),
+                return GestureDetector(
+                  onTap: () {
+                    controller.setSelectedImageItem(imageItem);
+                  },
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5.13),
+                      border: controller.imageAliasSelected.value != null &&
+                              controller.imageAliasSelected.value!.imgId ==
+                                  imageItem.imgId
+                          ? Border.all(color: brandMain)
+                          : null,
                     ),
-                    child: Image.memory(
-                      base64Decode(imageItem.imgData),
-                      fit: BoxFit.cover,
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Container(
+                          width: double.infinity,
+                          height: double.infinity,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(5.13),
+                            child: FadeIn(
+                              child: Image.memory(
+                                base64Decode(imageItem.imgData),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        ),
+                        controller.imageAliasSelected.value != null &&
+                                controller.imageAliasSelected.value!.imgId ==
+                                    imageItem.imgId
+                            ? Positioned(
+                                bottom: 5,
+                                right: 5,
+                                child: Container(
+                                  width: 20,
+                                  height: 20,
+                                  decoration: BoxDecoration(
+                                    color: brandMain,
+                                    borderRadius: BorderRadius.circular(100),
+                                  ),
+                                  child: Center(
+                                    child: Icon(
+                                      Icons.check,
+                                      color: whiteColor,
+                                      size: 15,
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : Container(),
+                      ],
                     ),
                   ),
                 );
