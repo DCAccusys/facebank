@@ -13,8 +13,6 @@ import '../image_alias_otp/image_alias_binding.dart';
 import '../image_alias_otp/image_alias_page.dart';
 
 class LoginController extends GetxController {
-  static final _methodChannel =
-      MethodChannel(AppConfig.ENCRYPT_PASS_METHOD_CHANNEL);
 
   ISecurityRepository securityRepository;
 
